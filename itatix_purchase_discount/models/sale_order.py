@@ -62,7 +62,7 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id')
+    @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id', 'price_list')
     def _compute_amount(self):
         """
         Compute the amounts of the SO line.
@@ -84,7 +84,7 @@ class SaleOrderLine(models.Model):
     price_list = fields.Float(digits="Price list", copy=False)
     vendor_discount = fields.Float(digits="Price list", copy=False)
 
-    @api.onchange('product_id')
+    @api.onchange('product_id', 'price_list')
     def product_id_change(self):
         result = super(SaleOrderLine, self).product_id_change()
         vals = {}
