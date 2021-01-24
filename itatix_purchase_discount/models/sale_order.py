@@ -81,8 +81,8 @@ class SaleOrderLine(models.Model):
                 line.tax_id.invalidate_cache(['invoice_repartition_line_ids'], [line.tax_id.id])
         return res
 
-    price_list = fields.Float(digits="Price list", copy=False)
-    vendor_discount = fields.Float(digits="Price list", copy=False)
+    price_list = fields.Float(digits="Price list")
+    vendor_discount = fields.Float(digits="Price list")
 
     @api.onchange('product_id', 'price_list')
     def product_id_change(self):
