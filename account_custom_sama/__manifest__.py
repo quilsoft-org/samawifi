@@ -6,7 +6,6 @@
     'description': """
 Functional
 ----------
-
 This module add brand and sub-category on invoice report
 """,
     'author': 'Antonio Silva',
@@ -14,9 +13,12 @@ This module add brand and sub-category on invoice report
     'depends': [
         'account',
         'itatix_brand_product',
+        'itatix_sales_person_target',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'report/invoice_report_view.xml',
+        'report/invoice_report_sama_view.xml',
     ],
     'demo': [
     ],
