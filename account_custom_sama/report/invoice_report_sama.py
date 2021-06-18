@@ -150,7 +150,7 @@ class InvoiceReportSama(models.Model):
                         date_end = "%s-%.2d-%.2d"%(date[1], month, last)
                         line_domain = [('date_order', '>=', date_begin), ('date_order', '<=', date_end)]
 
-                    if 'user_id' in line:
+                    if 'user_id' in line and line['user_id']:
                         line_domain = expression.AND([line_domain, [('user_id','=',line['user_id'][0])]])
                         target_lines = self.env['sales.target.lines'].search(line_domain)
                         amount_target = sum(target_lines.mapped('monthly_target'))
