@@ -79,6 +79,18 @@ class InvoiceReportSama(models.Model):
     def _table_query(self):
         return '%s %s %s' % (self._select(), self._from(), self._where())
 
+    groupable_fields = ['user_id']
+    @api.model
+    def fields_get(self, allfields=None, attributes=None):
+        res = super(InvoiceReportSama, self).fields_get(allfields, attributes=attributes) 
+        not_groupable_fields = set(self._fields.keys()) - set(self.groupable_fields)
+        for field in not_groupable_fields:
+            if field in res:
+                res[field]['selectable'] = False ## Remove FilterBy       
+                res[field]['sortable'] = False ## Remove FilterBy                
+                res[field]['searchable'] = False ## Remove FilterBy                
+        return res
+        
     @api.model
     def _select(self):
         return '''
