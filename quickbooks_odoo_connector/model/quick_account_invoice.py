@@ -3,7 +3,7 @@ import time
 import odoo.addons.decimal_precision as dp
 
 from datetime import datetime
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.exceptions import Warning, RedirectWarning, UserError
 from requests_oauthlib import OAuth2Session
 from ..unit.quick_invoice_exporter import QboInvoiceExport
@@ -126,17 +126,17 @@ class account_invoice(models.Model):
                             order_id = self.env['account.move'].search([('backend_id', '=', backend_id),('quickbook_id', '=', rec['Id'])])
 
                             tax_id = []
-                            if lines['SalesItemLineDetail']['TaxCodeRef']['value'] == 'TAX':
-                                if 'TxnTaxDetail' in rec and 'TxnTaxCodeRef' in rec.get('TxnTaxDetail'):
-                                    taxs_id = self.env['account.tax'].search([('type_tax_use', '=', 'sale'), ('amount_type', '=', 'group'),('quickbook_id', '=', rec['TxnTaxDetail']['TxnTaxCodeRef']['value'])]).id
-                                    if taxs_id:
-                                        tax_id.append(taxs_id)
-                            
                             if not self.env.company.partner_id.country_id.code is 'US':
                                 if 'TaxCodeRef' in lines.get('SalesItemLineDetail'):
                                     taxs_id = self.env['account.tax'].search([('type_tax_use', '=', 'sale'), ('amount_type', '=', 'group'),('quickbook_id', '=', lines['SalesItemLineDetail']['TaxCodeRef']['value'])]).id
                                     if taxs_id:
                                         tax_id.append(taxs_id)
+                            else:
+                                if lines['SalesItemLineDetail']['TaxCodeRef']['value'] == 'TAX':
+                                    if 'TxnTaxDetail' in rec and 'TxnTaxCodeRef' in rec.get('TxnTaxDetail'):
+                                        taxs_id = self.env['account.tax'].search([('type_tax_use', '=', 'sale'), ('amount_type', '=', 'group'),('quickbook_id', '=', rec['TxnTaxDetail']['TxnTaxCodeRef']['value'])]).id
+                                        if taxs_id:
+                                            tax_id.append(taxs_id)
                             order = self.env['account.move.line'].search([('move_id', '=', order_id.id),('quickbook_id', '=', lines['Id']),('name', '=', lines.get('Description'))])
                             
                             if 'UnitPrice' in lines['SalesItemLineDetail']:
@@ -242,15 +242,15 @@ class account_invoice(models.Model):
                             order_id = self.env['account.move'].search([('backend_id', '=', backend_id),('quickbook_id', '=', rec['Id'])])
 
                             tax_id = []
-                            if lines['ItemBasedExpenseLineDetail']['TaxCodeRef']['value'] == 'TAX':
-                                if 'TxnTaxDetail' in rec and 'TxnTaxCodeRef' in rec.get('TxnTaxDetail'):
-                                    tax_id = [self.env['account.tax'].search([('type_tax_use', '=', 'purchase'), ('amount_type', '=', 'group'),('quickbook_id', '=', rec['TxnTaxDetail']['TxnTaxCodeRef']['value'])]).id]
-
                             if not self.env.company.partner_id.country_id.code is 'US':
                                 if 'TaxCodeRef' in lines.get('ItemBasedExpenseLineDetail'):
                                     taxs_id = self.env['account.tax'].search([('type_tax_use', '=', 'purchase'), ('amount_type', '=', 'group'),('quickbook_id', '=', lines['ItemBasedExpenseLineDetail']['TaxCodeRef']['value'])]).id
                                     if taxs_id:
                                         tax_id.append(taxs_id)
+                            else:
+                                if lines['ItemBasedExpenseLineDetail']['TaxCodeRef']['value'] == 'TAX':
+                                    if 'TxnTaxDetail' in rec and 'TxnTaxCodeRef' in rec.get('TxnTaxDetail'):
+                                        tax_id = [self.env['account.tax'].search([('type_tax_use', '=', 'purchase'), ('amount_type', '=', 'group'),('quickbook_id', '=', rec['TxnTaxDetail']['TxnTaxCodeRef']['value'])]).id]
 
                             order = self.env['account.move.line'].search([('move_id', '=', order_id.id),('quickbook_id', '=', lines['Id']),('name', '=', lines.get('Description'))])
                             
@@ -345,12 +345,17 @@ class account_invoice(models.Model):
             'currency_id': currency,
             }
             if not invoice_id:
-                invoice = super(account_invoice, self).create(vals)
-                invoice.action_post()
-                return invoice
+                try:
+                    invoice = super(account_invoice, self).create(vals)
+                    invoice.action_post()
+                    return invoice
+                except:
+                    raise Warning(_("Issue while importing Invoice " + vals.get('doc_number') + ". Please check if there are any missing values in Quickbooks. If no, then please make sure other dependent fields have been imported first."))
             else:
-                invoice = invoice_id.write(vals)
-                return invoice
+                if invoice_id.state == 'draft':
+                    invoice = invoice_id.write(vals)
+                    return invoice
+                return
 
     def invoice_import_batch(self, model_name, backend_id, filters=None):
         """ Import Invoice Details. """

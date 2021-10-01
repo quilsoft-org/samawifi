@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 {
+
     'name': "Quickbooks Odoo Connector",
 
     'summary': """
-        QuickBooks Odoo Connector """,
+        Quickbooks Odoo Connector supports two-way synchronization which makes management a lot more easier! 
+        Our module helps you integrate and manage your Quickbooks Online with Odoo. 
+        Sync Quickbooks and Odoo with just one click.""",
 
     'description': """
-        - Export and import data to and from Quickbooks.
+        - Ixport and Emport data to and from Quickbooks Online.
         - For enabling Chart Of Accounts, activate accounting features by enabling the option in user settings.
-
     """,
 
     'author': "Techspawn Solutions",
@@ -43,7 +45,7 @@
         'python': ['requests_oauthlib'],
     },
     
-    "images": ['static/description/background.jpg'],
+    "images": ['static/description/Quickbooks_New_V14.gif'],
     'installable': True,
     'application': True,
 }

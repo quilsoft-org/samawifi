@@ -21,7 +21,7 @@ import random
 import requests
 import time
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from datetime import datetime
 from requests_oauthlib import OAuth2Session
 from odoo.exceptions import Warning, RedirectWarning, UserError
@@ -184,14 +184,16 @@ class quickbook_product_template(models.Model):
                 if rec['SalesTaxCodeRef']:
                     taxes_id = self.env['account.tax'].search(
                         [('type_tax_use', '=', 'sale'), ('quickbook_id', '=', rec['SalesTaxCodeRef']['value'])])
-                    taxes_ids.append(taxes_id.id)
+                    if taxes_id:
+                        taxes_ids.append(taxes_id.id)
 
             supplier_taxes_ids = []
             if 'PurchaseTaxCodeRef' in rec:
                 if rec['PurchaseTaxCodeRef']:
                     supplier_taxes_id = self.env['account.tax'].search(
                         [('type_tax_use', '=', 'purchase'), ('quickbook_id', '=', rec['PurchaseTaxCodeRef']['value'])])
-                    supplier_taxes_ids.append(supplier_taxes_id.id)
+                    if supplier_taxes_id:
+                        supplier_taxes_ids.append(supplier_taxes_id.id)
 
             if 'PurchaseDesc' in rec:
                 description_purchase = rec['PurchaseDesc'] or None
@@ -230,7 +232,10 @@ class quickbook_product_template(models.Model):
         }
 
         if not item_id:
-            return super(quickbook_product_template, self).create(vals)
+            try:
+                return super(quickbook_product_template, self).create(vals)
+            except:
+                raise Warning(_("Issue while importing Product " + vals.get('name') + ". Please check if there are any missing values in Quickbooks."))
         else:
             account = item_id.write(vals)
             return account

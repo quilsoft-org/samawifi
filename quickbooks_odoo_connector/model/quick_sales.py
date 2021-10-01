@@ -21,7 +21,7 @@ import time
 
 from datetime import datetime
 from odoo.exceptions import except_orm, Warning, RedirectWarning, UserError
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from requests_oauthlib import OAuth2Session
 from ..unit.quick_sale_order_exporter import QboSalesOrderExport
 
@@ -113,16 +113,17 @@ class quickbook_sale_order(models.Model):
                             
                             order_id = self.env['sale.order'].search([('backend_id', '=', backend_id),('quickbook_id', '=', rec['Id'])])                       
                             tax_id = []
-                            if lines['SalesItemLineDetail']['TaxCodeRef']['value'] == 'TAX':
-                                if 'TxnTaxDetail' in rec and 'TxnTaxCodeRef' in rec.get('TxnTaxDetail'):
-                                    taxs_id = self.env['account.tax'].search([('type_tax_use', '=', 'sale'), ('amount_type', '=', 'group'),('quickbook_id', '=', rec['TxnTaxDetail']['TxnTaxCodeRef']['value'])]).id
-                                    if taxs_id:
-                                        tax_id.append(taxs_id)
                             if not self.env.company.partner_id.country_id.code is 'US':
                                 if 'TaxCodeRef' in lines.get('SalesItemLineDetail'):
                                     taxs_id = self.env['account.tax'].search([('type_tax_use', '=', 'sale'), ('amount_type', '=', 'group'),('quickbook_id', '=', lines['SalesItemLineDetail']['TaxCodeRef']['value'])]).id
                                     if taxs_id:
                                         tax_id.append(taxs_id)
+                            else:
+                                if lines['SalesItemLineDetail']['TaxCodeRef']['value'] == 'TAX':
+                                    if 'TxnTaxDetail' in rec and 'TxnTaxCodeRef' in rec.get('TxnTaxDetail'):
+                                        taxs_id = self.env['account.tax'].search([('type_tax_use', '=', 'sale'), ('amount_type', '=', 'group'),('quickbook_id', '=', rec['TxnTaxDetail']['TxnTaxCodeRef']['value'])]).id
+                                        if taxs_id:
+                                            tax_id.append(taxs_id)
 
                             order = self.env['sale.order.line'].search([('order_id', '=', order_id.id),('quickbook_id', '=', lines['Id'])])
 
@@ -133,7 +134,7 @@ class quickbook_sale_order(models.Model):
                                 'tax_id': [(6, 0, tax_id)],
                                 'product_uom': 1,
                                 'price_subtotal': lines['Amount'],
-                                'name': lines['Description'],
+                                'name': lines.get('Description'),
                                 'quickbook_id': lines['Id'],
                                 }
                             if not order:
@@ -162,9 +163,12 @@ class quickbook_sale_order(models.Model):
         }
 
         if not order_id:
-            order = super(quickbook_sale_order, self).create(vals)
-            order.action_confirm()
-            return order
+            try:
+                order = super(quickbook_sale_order, self).create(vals)
+                order.action_confirm()
+                return order
+            except:
+                raise Warning(_("Issue while importing Sales Receipt " + vals.get('client_order_ref') + ". Please check if there are any missing values in Quickbooks. If no, then please make sure other dependent fields have been imported first."))
         else:
             order = order_id.write(vals)
             return order

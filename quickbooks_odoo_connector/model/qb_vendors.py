@@ -122,7 +122,7 @@ class quickbook_vendors_custom(models.Model):
                     street = bil['Line1'] or None
                     street2 = bil.get('Line2') or None
                     city = bil.get('City') or None
-                    zip = bil['PostalCode'] or None
+                    zip = bil.get('PostalCode') or None
                     if 'Country' in bil and bil['Country']:
                         country_id = self.env['res.country'].search(
                             [('code', '=', bil['Country'])])

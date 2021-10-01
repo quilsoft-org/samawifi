@@ -3,7 +3,8 @@ import logging
 import time
 
 from datetime import datetime
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import Warning
 from requests_oauthlib import OAuth1Session, OAuth2Session
 
 _logger = logging.getLogger(__name__)
@@ -119,7 +120,10 @@ class quickbook_acount_tax(models.Model):
                         }
 
                         if not tax_code_id:
-                            tax_code = super(quickbook_acount_tax, self).create(vals)
+                            try:
+                                tax_code = super(quickbook_acount_tax, self).create(vals)
+                            except:
+                                raise Warning(_("Issue while importing Account Sale Tax " + vals.get('name') + ". Please check if there are any missing values in Quickbooks."))
                         else:
                             tax_code = tax_code_id.write(vals)
 
@@ -163,7 +167,10 @@ class quickbook_acount_tax(models.Model):
                         }
 
                         if not tax_code_id:
-                            tax_code = super(quickbook_acount_tax, self).create(vals)
+                            try:
+                                tax_code = super(quickbook_acount_tax, self).create(vals)
+                            except:
+                                raise Warning(_("Issue while importing Account Purchase Tax " + vals.get('name') + ". Please check if there are any missing values in Quickbooks."))
                         else:
                             tax_code = tax_code_id.write(vals)
             return

@@ -129,7 +129,10 @@ class quickbook_acount(models.Model):
             'reconcile': reconcile
         }
         if not account_id:
-            return super(quickbook_acount, self).create(vals)
+            try:
+                return super(quickbook_acount, self).create(vals)
+            except:
+                raise Warning(_("Issue while importing Chart of Account " + vals.get('name') + ". Please check if there are any missing values in Quickbooks."))
         else:
             for ac_id in account_id:
                 account = ac_id.write(vals)

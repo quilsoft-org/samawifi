@@ -2,7 +2,7 @@ import logging
 import time
 
 from datetime import datetime
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.exceptions import Warning, UserError
 from requests_oauthlib import OAuth2Session
 from ..unit.quick_customer_exporter import QboCustomerExport
@@ -269,10 +269,12 @@ class quick_customer(models.Model):
             'property_product_pricelist': price_list or False,
             'property_purchase_currency_id': currency,
         }
-
         if not partner_id:
             print(vals)
-            return super(quick_customer, self).create(vals)
+            try:
+                return super(quick_customer, self).create(vals)
+            except:
+                raise Warning(_("Issue while importing " + vals.get('name') + ". Please check if there are any missing values in Quickbooks."))
         else:
             partner = partner_id.write(vals)
             return partner

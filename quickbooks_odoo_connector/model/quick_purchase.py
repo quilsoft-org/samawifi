@@ -20,7 +20,7 @@ import logging
 import time
 
 from datetime import datetime
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.exceptions import Warning, UserError
 from requests_oauthlib import OAuth2Session
 from ..unit.quick_purchase_exporter import QboPurchaseExport
@@ -117,17 +117,17 @@ class quickbook_purchase_order(models.Model):
                                 [('backend_id', '=', backend_id), ('quickbook_id', '=', rec['Id'])])
 
                             tax_id = []
-                            if lines['ItemBasedExpenseLineDetail']['TaxCodeRef']['value'] == 'TAX':
-                                if 'TxnTaxDetail' in rec and 'TxnTaxCodeRef' in rec.get('TxnTaxDetail'):
-                                    taxs_id = self.env['account.tax'].search([('type_tax_use', '=', 'purchase'), ('amount_type', '=', 'group'),('quickbook_id', '=', rec['TxnTaxDetail']['TxnTaxCodeRef']['value'])]).id
-                                    if taxs_id:
-                                        tax_id.append(taxs_id)
-
                             if not self.env.company.partner_id.country_id.code is 'US':
                                 if 'TaxCodeRef' in lines.get('ItemBasedExpenseLineDetail'):
                                     taxs_id = self.env['account.tax'].search([('type_tax_use', '=', 'purchase'), ('amount_type', '=', 'group'),('quickbook_id', '=', lines['ItemBasedExpenseLineDetail']['TaxCodeRef']['value'])]).id
                                     if taxs_id:
                                         tax_id.append(taxs_id)
+                            else:
+                                if lines['ItemBasedExpenseLineDetail']['TaxCodeRef']['value'] == 'TAX':
+                                    if 'TxnTaxDetail' in rec and 'TxnTaxCodeRef' in rec.get('TxnTaxDetail'):
+                                        taxs_id = self.env['account.tax'].search([('type_tax_use', '=', 'purchase'), ('amount_type', '=', 'group'),('quickbook_id', '=', rec['TxnTaxDetail']['TxnTaxCodeRef']['value'])]).id
+                                        if taxs_id:
+                                            tax_id.append(taxs_id)
 
                             order = self.env['purchase.order.line'].search(
                                 [('order_id', '=', order_id.id), ('quickbook_id', '=', lines['Id']),
@@ -139,7 +139,7 @@ class quickbook_purchase_order(models.Model):
                                     'product_uom': 1,
                                     'taxes_id': [(6, 0, tax_id)],
                                     'price_subtotal': lines['Amount'],
-                                    'name': lines['Description'],
+                                    'name': lines.get('Description'),
                                     'quickbook_id': lines['Id'],
                                     'date_planned': rec['TxnDate']
                                     }
@@ -177,9 +177,12 @@ class quickbook_purchase_order(models.Model):
         }
 
         if not purchase_id:
-            purchase = super(quickbook_purchase_order, self).create(vals)
-            purchase.button_confirm()
-            return purchase
+            try:
+                purchase = super(quickbook_purchase_order, self).create(vals)
+                purchase.button_confirm()
+                return purchase
+            except:
+                raise Warning(_("Issue while importing Purchase Order " + vals.get('doc_number') + ". Please check if there are any missing values in Quickbooks. If no, then please make sure other dependent fields have been imported first."))
         else:
             purchase_id = purchase_id.write(vals)
             return purchase_id

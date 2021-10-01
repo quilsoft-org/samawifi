@@ -20,7 +20,7 @@ import logging
 import time
 
 from datetime import datetime
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.exceptions import Warning, UserError
 from requests_oauthlib import OAuth2Session
 from ..unit.quick_employee_exporter import QboEmployeeExport
@@ -179,7 +179,10 @@ class quickbook_employee(models.Model):
         }
 
         if not partner_id:
-            return super(quickbook_employee, self).create(vals)
+            try:
+                return super(quickbook_employee, self).create(vals)
+            except:
+                raise Warning(_("Issue while importing Employee " + vals.get('name') + ". Please check if there are any missing values in Quickbooks."))
         else:
             partner = partner_id.write(vals)
             return partner

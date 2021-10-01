@@ -1,456 +1,1196 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Odoo Apps</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-  <!--  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
-  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
-  <!--  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> -->
-</head>
-
-
-<body >
-  <section style="padding: 21px 0px;">
-    <div>
-      <div style=" padding: 21px 0px;">
-        <h2 class="oe_slogan line-title" style="text-align: center;
-        border: 2px solid #3C84C2;width: 46%;margin: 0 auto;padding: 10px;font-family: 'Montserrat';background-color: #BFF0B3;border-bottom-left-radius: 25px;font-size: 24px;" >QuickBooks Online Odoo Connector</h2>
-        <h3 class="oe_slogan" style="padding-top: 20px;
-        text-align: justify;width: 68%;margin: 0 auto;"> <div style="font-family: 'Montserrat';
-        padding-top: 16px;font-size: 18px;color: #000;font-weight: 400;">QuickBooks Odoo Connector is a specially designed module which connect Odoo with QuickBooks Online.QuickBooks online(QBO) is largely used account management application in USA. QuickBooks Online Odoo Connector will help you to integrate odoo with QBO to manage your inventory from odoo side easily.</div></h3>
-      </div>
-    </div>
-  </section>
-
-  <section>
-
-    <div class="container">
-      <div class="row" style="border-radius: 12px;
-      border: 0px solid rgba(0, 0, 0, 0.07);
-      padding-bottom: 40px;background-color: #F0F4F7">
-      <div class="section-head text-center"  style="padding-top:4%;padding-bottom: 4%;">
-        <h1 class="line-title" style=" font-size: 42px;color: #495057;font-family: 'Montserrat !important';font-weight: 400;" align="center">Features of the Module</h1> 
-        <p></p>
-      </div>
-
-      <div style="width: 100%;display: inline-flex;">
-        <div style="width: 16.666667%;;"></div>
-        <div style="width: 33.333333%;margin-right: 20px;margin-left: 20px;">
-          <div class="item" style=" 
-          background: #fff;
-          text-align: center;
-          padding: 30px 25px;
-          border-radius: 20px;
-          border:5px solid #596FD3;
-          margin-bottom: 30px;
-          height: 268px;
-          "> 
-          <img style="width:20%;" src="refresh.png"  />
-          <h4 style=" color: #0071b5;
-          padding-bottom: 8px;
-          font-family: 'Montserrat !important';
-          font-weight: 400;
-          padding-top: 20px;">Sync on Single click</h4>
-
-          <p style="font-size: 16px;line-height: 24px;color: #484f57;font-family: 'Montserrat';
-          font-weight: 300;text-align: center;">On a single tick Create, Update and Sync one or multiple records from Odoo to Quickbooks</p>
-        </div>
-      </div>
-      <div style="width: 33.333333%;margin-right: 20px;">
-        <div class="item" style=" 
-        background: #fff;
-        text-align: center;
-        padding: 30px 25px;
-        border-radius: 20px;
-        border:5px solid #596FD3;
-        margin-bottom: 30px;
-        height: 268px;
-        "> 
-        <img style="width:20%;" src="sync_problem.png"  />
-        <h4 style=" color: #0071b5;padding-bottom: 8px;font-family: 'Montserrat !important';font-weight: 400;padding-top: 20px;">Get status of synced data</h4>
-        <p style="font-size: 16px;line-height: 24px;color: #484f57;
-        font-family: 'Montserrat';font-weight: 300;text-align: center;">Get status of synced data or failed to sync and there response data.</p>
-      </div>
-    </div> 
-    <div style="width: 16.666667%;"></div>
-  </div>
-
-
-</div>
-</div>
-
-</section>
-<!-- 
-  <section> -->
-
-    <h2 class="line-title" style="color: #495057;font-family: 'Montserrat !important';font-weight: 400;text-align: center;margin: 0 auto;padding: 10px;background-color: #BFF0B3;border-bottom-left-radius: 25px;width: 55%;margin-top: 45px;margin-bottom: 45px;border: 1px solid #3C84C2;font-size: 24px;"> Module Provides Following Features:</h2>
-
-    <div class="module_list" style="display: inline-flex;width: 100%;max-width: 1140px;margin: 0 auto;" >
-
-      <div class="module_list_ara" style="display: inline-block;width: 50%;">
-        <ul >
-          <li style="font-size: 18px;padding: 6px;">Import Customer into odoo.</li>
-          <li style="font-size: 18px;padding: 6px;">Import Account Tax Code and Rate into odoo.</li>
-          <li style="font-size: 18px;padding: 6px;">Import Vendor into odoo.</li>
-          <li style="font-size: 18px;padding: 6px;">Import Payment Term into odoo.</li>
-          <li style="font-size: 18px;padding: 6px;"> Import Employee into odoo.</li>
-          <li style="font-size: 18px;padding: 6px;">Import Department into odoo.</li>
-          <li style="font-size: 18px;padding: 6px;"> Import Payment Method into odoo.</li>
-          <li style="font-size: 18px;padding: 6px;"> Import Product into odoo.</li>
-          <li style="font-size: 18px;padding: 6px;"> Import Sales Order into odoo.</li>
-          <li style="font-size: 18px;padding: 6px;"> Import Account into odoo.</li>
-          <li style="font-size: 18px;padding: 6px;"> Import Purchase Order into odoo.</li>
-          <li style="font-size: 18px;padding: 6px;"> Import Invoices into odoo.</li>
-        </ul>
-      </div>
-      <div class="module_list_ara"  style=" display: inline-block;width: 50%;float:right;">
-        <ul>
-          <li style="font-size: 18px;padding: 6px;">Export Customer to QuickBooks Online.</li>
-          <li style="font-size: 18px;padding: 6px;">Export Account Tax Code and Rate to QuickBooks Online.</li>
-          <li style="font-size: 18px;padding: 6px;">Export Vendor to QuickBooks Online.</li>
-          <li style="font-size: 18px;padding: 6px;">Export Payment Term to QuickBooks Online.</li>
-          <li style="font-size: 18px;padding: 6px;">Export Employee to QuickBooks Online.</li>
-          <li style="font-size: 18px;padding: 6px;">Export Department to QuickBooks Online.</li>
-          <li style="font-size: 18px;padding: 6px;">Export Payment Method into QuickBooks.</li>
-          <li style="font-size: 18px;padding: 6px;">Export Product to QuickBooks Online.</li>
-          <li style="font-size: 18px;padding: 6px;">Export Sale Order to QuickBooks Online.</li>
-          <li style="font-size: 18px;padding: 6px;">Export Account to QuickBooks Online.</li>
-          <li style="font-size: 18px;padding: 6px;">Export Purchase Order to QuickBooks Online.</li>
-          <li style="font-size: 18px;padding: 6px;">Export Invoices to QuickBooks Online.</li>
-          <li style="font-size: 18px;padding: 6px;">Export Receipts to QuickBooks Online.</li>
-          <li style="font-size: 18px;padding: 6px;">Export Timesheets to QuickBooks Online.</li>
-          <li style="font-size: 18px;padding: 6px;">Single Sync button on every form view to export data instantly.
-          </li>
-        </ul>
-      </div>
-    </div>
-    
-    <!-- </section> -->
-    <section class=" sync confi_part" style="padding: 21px 0px; ">
-
-
-      <div style="width: 100%;">
-        <h2 class="line-title" id="back_title"  style="color: #495057;font-family: 'Montserrat';font-weight: 400;text-align: center;margin: 0 auto;padding: 10px;background-color: #BFF0B3;border-bottom-left-radius: 25px;width: 55%;
-        margin-top: 45px;margin-bottom: 45px;border: 1px solid #3C84C2;">Backend Setup And Configure</h2>
-        
-        <div style=" padding: 21px 0px;">
-         <!--  <div class="" style=" padding: 21px 0px;"> -->
-          <img class="oe_picture " style="margin-left: 8%; max-width: 80%; border: 6px solid #596FD3;" src="backend.png" alt="img2">
-          <!--  </div> -->
-        </div>
-      </div>
-    </section>
-
-    <section  style="background-color: #F0F4F7;margin-bottom: 40px;padding: 21px 0px;">
-
-
-      <h2 class="line-title module-title-sec" style="color: #495057;font-family: 'Montserrat';font-weight: 400;text-align: center;margin: 0 auto;padding: 10px;background-color: #BFF0B3;border-bottom-left-radius: 25px;width: 55%;
-      border: 1px solid #3C84C2;margin-top: 30px;
-      margin-bottom: 20px;font-size: 24px;">One Place For Import Export</h2>
-
-      <div class="module-area  module_list" style="background-color: #F0F4F7;padding: 40px;display: inline-flex;">
-        <div class="module_list_ara" style="ddisplay: inline-block;width: 50%;">
-          <li style="font-size: 18px;padding: 6px;">From here we can do Import Export for following items:</li>
-          <li style="font-size: 18px;padding: 6px;">Customer</li>
-          <li style="font-size: 18px;padding: 6px;">Vendor </li>
-          <li style="font-size: 18px;padding: 6px;">Product</li>
-          <li style="font-size: 18px;padding: 6px;">Sale Order</li>
-          <li style="font-size: 18px;padding: 6px;">Invoices</li>
-          <li style="font-size: 18px;padding: 6px;">Payment Attched with Invoices</li>
-          <li style="font-size: 18px;padding: 6px;">Account </li>
-          <li style="font-size: 18px;padding: 6px;">Maintain your Quick-Books online product/customers/employees/inventory from odoo on single click.</li>
-        </div>
-        <div class="module_list_ara" style="display: inline-block;width: 50%;float: right;">
-          <li style="font-size: 18px;padding: 6px;">Purchase Order</li>
-          <li style="font-size: 18px;padding: 6px;">Payment Term</li>
-          <li style="font-size: 18px;padding: 6px;">Tax</li>
-          <li style="font-size: 18px;padding: 6px;">Payment Method</li>
-          <li style="font-size: 18px;padding: 6px;">Employee</li>
-          <li style="font-size: 18px;padding: 6px;">Department</li>
-          <li style="font-size: 18px;padding: 6px;">Here two separate tabs are available and under those import export tab some buttons are available on clicking those button odoo data with Quickbooks backend Import/Export to QuickBooks.</li>
-          <li style="font-size: 18px;padding: 6px;">Sync all through single Export button.</li>
-        </div>  
-      </div>
-    </section>
-    
-    <div>
-
-      <div style="margin: 20px;">
-        <details class="acc_ara" style="color: #495057;
-        font-family: 'Montserrat';
-        font-weight: 400;
-        text-align: center;
-        margin: 0 auto;
-        padding: 10px;
-        background-color: #f6f6f6;
-        border-bottom-left-radius: 25px;
-        width: 80%;
-        border: 1px solid #000;
-        font-size: 24px;"><summary>One Place For Import Export</summary>
-        <img   style="width:100%;padding-top: 20px;" src="button1.png">
-        <img  style="width:100%;padding-top: 20px; " src="button2.png">
-        <img  style="width:100%;padding-top: 20px;" src="customer.png">
-      </details>
-    </div>
-
-    <div style="margin: 20px;">
-      <details class="acc_ara" style="color: #495057;
-      font-family: 'Montserrat';
-      font-weight: 400;
-      text-align: center;
-      margin: 0 auto;
-      padding: 10px;
-      background-color: #f6f6f6;
-      border-bottom-left-radius: 25px;
-      width: 80%;
-      border: 1px solid #000;
-      font-size: 24px;"><summary>Manage Your QuickBooks online Product From Odoo</summary>
-      <img style="width:100%;padding-top: 20px;" src="prod.png">
-    </details>
-  </div>
-
-  <div style="margin: 20px;">
-    <details class="acc_ara" style="color: #495057;
-    font-family: 'Montserrat';
-    font-weight: 400;
-    text-align: center;
-    margin: 0 auto;
-    padding: 10px;
-    background-color: #f6f6f6;
-    border-bottom-left-radius: 25px;
-    width: 80%;
-    border: 1px solid #000;
-    font-size: 24px;"><summary>Manage Your Purchase Order From Odooo</summary>
-    <img style="width:100%;padding-top: 20px;" src="pos.png">
-  </details>
-</div>
-
-
-<div style="margin: 20px;">
-  <details class="acc_ara" style="color: #495057;
-  font-family: 'Montserrat';
-  font-weight: 400;
-  text-align: center;
-  margin: 0 auto;
-  padding: 10px;
-  background-color:#f6f6f6;
-  border-bottom-left-radius: 25px;
-  width: 80%;
-  border: 1px solid #000;
-  font-size: 24px;"><summary>Manage Your Sales Invoice and Vendor Bill From Odoo</summary>
-  <img style="width:100%;padding-top: 20px;" src="prod.png">
-</details>
-</div>
-
-
-<div style="margin: 20px;">
-  <details class="acc_ara" style="color: #495057;
-  font-family: 'Montserrat';
-  font-weight: 400;
-  text-align: center;
-  margin: 0 auto;
-  padding: 10px;
-  background-color: #f6f6f6;
-  border-bottom-left-radius: 25px;
-  width: 80%;
-  border: 1px solid #000;
-  font-size: 24px;"><summary>Manage Your Purchase Order From Odooo</summary>
-  <img style="width:100%;padding-top: 20px;" src="invoice.png">
-</details>
-</div>
-
-<div style="margin: 20px;">
-  <details class="acc_ara" style="color: #495057;
-  font-family: 'Montserrat';
-  font-weight: 400;
-  text-align: center;
-  margin: 0 auto;
-  padding: 10px;
-  background-color: #f6f6f6;
-  border-bottom-left-radius: 25px;
-  width: 80%;
-  border: 1px solid #000;
-  font-size: 24px;"><summary>Simple View Of Customer/Vendor After Importing Into Odoo</summary>
-  <img style="width:100%;padding-top: 20px;" src="supplier.png">
-</details>
-</div>
-
-<div style="margin: 20px;">
-  <details class="acc_ara" style="color: #495057;
-  font-family: 'Montserrat';
-  font-weight: 400;
-  text-align: center;
-  margin: 0 auto;
-  padding: 10px;
-  background-color: #f6f6f6;
-  border-bottom-left-radius: 25px;
-  width: 80%;
-  border: 1px solid #000;
-  font-size: 24px;"><summary>Other Stuff We Can Import/Export Into Odoo.</summary>
-  <h5>Invoice Payments</h5>
-  <img style="width:100%;padding-top: 20px;" src="invpayment.png">
-  <h5>Vendor Bill Payments
-  </h5>
-  <img style="width:100%;padding-top: 20px;" src="billpayment.png">
-</details>
-</div>
-
-</div>
-<br/>
-<section>
-  <div class="container oddo_product" style="background-color: #F7F7F7;border:2px solid #596FD3;margin-top: 30px;max-width: 1140px;margin: 0 auto;"><br><br>
-    <h2 style="color: #495057;
-    text-align: center;
-    margin-bottom: 20px;font-family: 'Montserrat';
-    font-size: 40px;font-weight:400;">Our Services</h2><br>  
-    <div  class="service_box" style="width:100%;margin-bottom: 40px; display: inline-flex;">
-      <div class="services_block" style="background: white;
-      padding: 10px 20px;width: 20%;
-      border: 2px solid #596FD3;margin: 10px 30px;">
-      <a href="https://techspawn.com/odoo-erp-development/" class="odoo_erp btn" style="  font-size: 17px;  font-weight: 600;width: 100%;color:#0071b5; font-family: 'Montserrat';text-decoration: none;"><span><img src="service_1.png" style="width: 22%;float: left;
-      padding-right: 10px;"></span><span>Odoo ERP Development</span></a>
-    </div>
-    <div class="services_block" style="background: white;
-    padding: 10px 20px;width: 20%;
-    border: 2px solid #596FD3;margin: 10px 30px;">
-    <a href="https://techspawn.com/odoo-apps-development/"  class="odoo_app btn" style="font-size: 17px;font-weight: 600;width: 100%;color: #0071b5;font-family: 'Montserrat';text-decoration: none;"><span><img src="service_2.png" style="width: 22%;float: left;padding-right: 10px;" ></span><span>Odoo Apps Development</span></a>
-  </div>
-  <div class="services_block" style="background: white;
-    padding: 10px 20px;width: 20%;
-    border: 2px solid #596FD3;margin: 10px 30px;">
-    <a href="https://techspawn.com/odoo-migration/"  class="odoo_migration btn" style="font-size: 17px;font-weight: 600;width: 100%;color: #0071b5;font-family: 'Montserrat';text-decoration: none;"><img src="service_3.png" style="width: 22%;float: left;padding-right: 10px;" >Odoo Migration</a>
-  </div>    
-  <div class="services_block" style="background: white;
-    padding: 10px 20px;width: 20%;
-    border: 2px solid #596FD3;margin: 10px 30px;">
-   <a href="https://techspawn.com/dedicated-odoo-developers/"  class="dedicated_odoo btn" style="font-size: 17px;font-weight: 600;width: 100%;color: #0071b5;font-family: 'Montserrat';text-decoration: none;"><img src="service_4.png" style="width: 20%;float: left; padding-right: 10px;"><span style="padding-top:8px;vertical-align: sub;">Dedicated Odoo</span> <span>Developers</span></a>
- </div> 
- 
-</div>
-</div>
-</section>
-<section>
-  <div class="container oddo_product"><br><br>
-    <div class="logo_bann">
-      <img src="logo.png" style="width: 40%;display: block;margin: 0 auto;padding-bottom: 3%;">
-    </div>
-    <p style="font-size: 16px;line-height: 24px;color: #495057;font-family: 'Montserrat';font-weight: 300;text-align: center;margin-bottom: 40px;">Get Expert's help and assistance related to the new Odoo features and all ERP related solutions at one place.</p>
-    <div class="jumbotron support_container" style="max-width: 1140px;margin: 0 auto;background: linear-gradient(to bottom, #35BCE1 0%, #3FA8DE 18%, #3FA8DE 25%, #5B6DD3 100%);padding-top: 40px; border-radius: 0px;box-shadow: 0px 6px 13px 0px #ccc9c9; height: 300px;">
-      <h2 style="font-size: 30px;color: #f6f6f6;font-family: 'Montserrat';font-weight: 400;
-      margin-bottom: 20px;text-align: center;">Contact and Support</h2><br> 
-      <div  style="width:100%;margin-bottom: 40px; display: inline-flex;" class="support_main_row">
-        <div   class="cont_support" style="width: 33.33%;">
-          <center><a href="mailto:sales@techspawn.com" class="support_ara btn" style="font-size: 15px; font-weight: 600; color: #495057;box-shadow: 0px 2px 9px 0px #939191; background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(214,214,214,1) 100%);padding: 9px 55px;border-radius: 9px;display: inline-flex;text-decoration: none;"><img src="support.png" style="width: 22%;
-    padding-right: 10px;"><span style="padding-top: 6px;">SUPPORT</span></a></center> 
-        </div>
-        <div class="cont_support" style="width: 33.33%;">
-         <center><a href="https://techspawn.com/connect-with-techspawn/" class="support_ara btn" style="font-size: 15px; font-weight: 600; color: gray;box-shadow: 0px 2px 9px 0px #939191; background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(214,214,214,1) 100%);padding: 7px 50px;border-radius:9px;display: inline-flex;text-decoration: none;"><img src="Contact.png" style="width: 22%;padding-right: 10px;" ><span style="padding-top: 8px;text-decoration: none;">CONTACT US</span></a></center> 
-       </div>
-       <div  class="cont_support" style="width: 33.33%;">
-         <center><a href="mailto:sales@techspawn.com" class="support_ara btn" style="font-size: 15px; font-weight: 600; color: gray;box-shadow: 0px 2px 9px 0px #939191; background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(214,214,214,1) 100%);padding: 8px 40px;border-radius: 9px;display: inline-flex;text-decoration: none;"><img src="suggestions.png" style="width: 22%;
-    padding-right: 10px;" ><span style="padding-top: 8px;">SUGGESTIONS</span></a></center> 
-       </div>    
-     </div><br>
-     <div  style="width:100%;display: inline-flex;">
-      <div style="width: 33.33%; "></div>
-      <div  style="width:33.33%;-top: 20px;">
-       <center>
-         <a href="https://www.facebook.com/techspawnsolutions" target="_blank" ><img src="facebook.png" style="width: 8%;margin-right: 26px;">  </a>
-         <a href="https://techspawn.com/skype:techspawnsolutions" target="_blank"><img src="Skype.png" style="width: 8%;margin-right: 26px;"></a>
-         <a href="https://www.linkedin.com/in/techspawn" target="_blank" ><img src="in.png" style="width: 8%;margin-right: 26px;"></a>
-       </center> 
-     </div>
-     <div style="width: 33.33%;"></div>
-   </div>  
- </div> 
-
-
-</div>
+<section class="oe_container custom_main_box" style="margin-top: -24px !important;">
+	<div class="row mt92 o_equal_col_sm"
+		style="max-width:1540px;margin:0 auto;background-color:#ebf2f8;padding-bottom:92px;border-radius:15px;">
+		<div class="" style="display:block;margin:0 auto;width: 500px;">
+			<!-- <div style="display: inline-block;width: 240px;">
+				<a href="https://www.emiprotechnologies.com" target="_blank" style="width: 100%;display: inline-block;">
+					<img class="img img-responsive mt16" src="emipro_logo.png" style="display: block;margin: 0 auto;" />
+				</a>
+			</div> -->
+			<!-- <div style="width: 2px;height: 105px;background-image: -webkit-linear-gradient(transparent, #dce2e6, transparent);display: inline-block;vertical-align: top;"></div> -->
+			<div style="display: inline-block;width: 240px; margin-left: 120px;">
+				<a href="https://techspawn.com/connect-with-techspawn" target="_blank"
+					style="width: 100%;display: inline-block;">
+					<img class="img img-responsive mt16" src="logo.png" style="margin: 0 auto;display: block;" />
+				</a>
+			</div>
+		</div>
+	</div>
 </section>
 
-<style>
-  section {
-    padding: 21px 0px;
-  }
 
-  @media screen and (max-width:1024px){
-    .odoo_migration img {width: 30% !important;}
-    .dedicated_odoo.btn {padding: 6px 32px 6px 8px !important}
-    .dedicated_odoo img {width: 30% !important;}
-    .line-title {font-size: 21px !important;}
-  }
+<section class="oe_container bg-transparent fixed-top position-relative" style="margin:-5rem 0">
+	<div class="row o_equal_col_sm" style="margin: 0 300px;">
+		<div class="shadow bg-white px-5 pb24 pt24" style="border-radius:15px">
 
-  
-  @media screen and (max-width:991px){
-    .odoo_erp {padding: 10px 3px 10px 4px !important;font-size: 15px !important;}
-    .odoo_app.btn {padding: 10px 3px 10px 4px !important;    font-size: 15px !important;}
-    .odoo_migration.btn {padding: 10px 3px 5px 4px !important;white-space: break-spaces;font-size: 15px !important;}
-    .dedicated_odoo.btn {font-size: 15px !important;}
-    .support_main_row .support_ara {padding: 7px 30px !important;width: 90%;}
-    .support_main_row .support_ara img {width: 22% !important;}
+			<section class="oe_container custom_space" style="margin-bottom:-66px;">
+				<div class="mt64 mb64 pt32 custom_gst_text" style="padding-top: 0px !important;">
+					<h2 class="oe_slogan custom_gst_design"
+						style="color: #ff8950;font-family: Roboto;font-weight: 500;text-align:center;text-transform: uppercase; margin-top: -50px !important; margin-bottom: 10px !important;">
+						Quickbooks Odoo Connector
+					</h2>
+					<p class="mb16 text-center text-black-dark"
+						style="font-family: Roboto;font-weight: initial;color: #091E42;text-align:center;"> By Techspawn
+						Solutions
+					</p>
 
-  }
+					<p class="mb16 text-center text-black-dark"
+						style="font-family: Roboto;font-weight: initial;color: #091E42;text-align:center;">Manage your
+						Quickbooks in real time with bi-directional data exchange between Quickbooks and Odoo.
 
-  @media screen and (max-width:650px){
-    .service_box .services_block {width: 50% !important;
-      padding-right: 0px !important;margin: 0 auto;margin-bottom: 20px;}
-      .service_box {display: block !important;}
-      .odoo_erp {font-size: 20px !important;}
-      .odoo_app.btn {font-size: 20px !important;}
-      .odoo_migration.btn {font-size: 20px !important;}
-      .dedicated_odoo.btn {font-size: 20px !important;}
-      .support_main_row {display: block !important;}
-      .support_main_row .cont_support {width: 100% !important;}
-      .support_main_row .support_ara img {width: 9% !important;}
-      .support_main_row .support_ara {margin-bottom: 20px;}
-      .support_container {height: 360px !important;}
-      .line-title {font-size: 18px !important;}
-      .module_list .module_list_ara li {font-size: 15px !important;}
-      /*section.sync.confi_part {margin-top: 16%;}*/
-      details.acc_ara {font-size: 20px !important;}
-      .logo_bann img {width: 60% !important;}
-    }
+					</p>
+				</div>
+			</section>
+			<section class="oe_container">
+				<div class="oe_row mt64 mb64 custom_one_click_button"
+					style="width: 260px; margin-top:20px !important;margin-bottom: 0px !important;">
+					<h3 class="contct_us_btn"
+						style="padding: 14px; letter-spacing: 0.6px; background-color: #087dda; text-align: center; box-shadow: 2px 1px 12px 3px #ece6e6; border-radius: 10px; color: #fff; font-family: &quot;Montserrat&quot;; font-weight: 600; text-transform: uppercase; font-size: 19px;">
+						<a href="https://techspawn.com/connect-with-techspawn" target="_blank">Single Click Operations
+						</a></h3>
+				</div>
+			</section>
+		</div>
+	</div>
+</section>
 
-    @media screen and (max-width: 600px){
-     /* section.sync.confi_part {margin-top: 40%;}*/
-     .module_list {display: block !important;width: 100% !important;margin: 0 auto;}
-     .module_list .module_list_ara {display: block !important;width: 100% !important;    float: none !important;}
-   }
-   @media screen and (max-width: 568px){
-    details.acc_ara {font-size: 18px !important;}
-  }
+<section class="oe_container">
+	<section id="loempia_tabs" class=""
+		style="padding:64px 20px;margin: 100px 0px;background-color:rgba(0, 56, 195, 0.12); border-radius: 22px;">
+		<ul role="tablist" class="nav nav-tabs justify-content-center" data-tabs="tabs"
+			style="border:none; background-color:unset">
+			<li class="nav-item"
+				style="border-top-right-radius: 6px;border-top-left-radius: 6px;background-color:#087dda;margin-right: 1px;padding-bottom: 2px;">
+				<a href="#ept_features" class=""
+					style="font-family: Roboto;text-transform: uppercase;font-weight: 600;font-size: 15px;letter-spacing: 1px;padding: 10px 20px;border-top-left-radius: 5px;border-top-right-radius: 5px;color: #2b2b2b;">Features
+				</a>
+			</li>
 
-  @media screen and (max-width: 480px){
-    .line-title {width: 78% !important;}
-    .module_list .module_list_ara {width: 100% !important;display: block !important;left: 0px !important;}
-    .odoo_erp {font-size: 18px !important;}
-    .odoo_app.btn {font-size: 18px !important;}
-    .odoo_migration.btn {font-size: 18px !important;}
-    .dedicated_odoo.btn {font-size: 18px !important;}
-  }
+			<li class="nav-item"
+				style="border-top-right-radius: 6px;border-top-left-radius: 6px;background-color:#087dda;margin-right: 1px;padding-bottom: 2px;">
+				<a href="#ept_screenshots" class=""
+					style="font-family: Roboto;text-transform: uppercase;font-weight: 600;font-size: 15px;letter-spacing: 1px;padding: 10px 20px;border-top-left-radius: 5px;border-top-right-radius: 5px;color: #2b2b2b;">Screenshots
+				</a>
+			</li>
+			<li class="nav-item"
+				style="border-top-right-radius: 6px;border-top-left-radius: 6px;background-color:#087dda;margin-right: 1px;padding-bottom: 2px;">
+				<a href="#ept_userguid" class=""
+					style="font-family: Roboto;text-transform: uppercase;font-weight: 600;font-size: 15px;letter-spacing: 1px;padding: 10px 20px;border-top-left-radius: 5px;border-top-right-radius: 5px;color: #2b2b2b;">User
+					Guide</a>
+			</li>
+			<li class="nav-item"
+				style="border-top-right-radius: 6px;border-top-left-radius: 6px;background-color:#087dda;margin-right: 1px;padding-bottom: 2px;">
+				<a href="#ept_faqs" class=""
+					style="font-family: Roboto;text-transform: uppercase;font-weight: 600;font-size: 15px;letter-spacing: 1px;padding: 10px 20px;border-top-left-radius: 5px;border-top-right-radius: 5px;color: #2b2b2b;">FAQs</a>
+			</li>
+		</ul>
 
-  @media screen and (max-width: 375px){
-    details.acc_ara {font-size: 16px !important;width: 86% !important;}
-    .odoo_erp {font-size: 16px !important;}
-    .odoo_app.btn {font-size: 16px !important;}
-    .odoo_migration.btn {font-size: 16px !important;}
-    .dedicated_odoo.btn {font-size: 16px !important;}
-    .logo_bann img {width: 80% !important;}
-  }
+		<section id="ept_features"
+			style="padding: 20px 10px;margin: 20px 0px;background-color:#fff;border-radius: 22px;"
+			class="ept_features d-flex align-items-center">
 
-  @media screen and (max-width: 360px){
-    .line-title {font-size: 17px !important;}
-    .odoo_erp {font-size: 15px !important;}
-    .odoo_app.btn {font-size: 15px !important;}
-    .odoo_migration.btn {font-size: 15px !important;}
-    .dedicated_odoo.btn {font-size: 15px !important;}
-    .logo_bann img {width: 100% !important;}
-  }
-</style>
+			<div class="container">
+				<div class="row">
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1);font-size: 16px;"><b>Synchronization
+										on Single Click</b></p>
+							</div>
+						</div>
+					</div>
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1);font-size: 16px;"><b>Get Status of
+										Synced Data</b></p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1);font-size: 16px;"><b>Import
+										Customers into Odoo</b></p>
+							</div>
+						</div>
+					</div>
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Export
+										Customers to QuickBooks Online</b></p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Import Account
+										Tax Code and Rate into Odoo</b></p>
+							</div>
+						</div>
+					</div>
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Export Account
+										Tax Code and Rate to QuickBooks Online</b></p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Import Vendors
+										into Odoo</b></p>
+							</div>
+						</div>
+					</div>
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Export Vendors
+										to QuickBooks Online</b></p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Import Payment
+										Terms into Odoo</b></p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Export Payment
+										Terms to QuickBooks Online</b></p>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Import
+										Employees into Odoo</b></p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Export
+										Employees to QuickBooks Online</b></p>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Import
+										Employee Department into Odoo</b></p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Export
+										Department to QuickBooks Online</b></p>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Import Payment
+										Methods into Odoo</b></p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Export Payment
+										Methods into QuickBooks Online</b></p>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Import Sales
+										Orders into Odoo</b></p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Export Sale
+										Orders to QuickBooks Online</b></p>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Import
+										Accounts into Odoo</b></p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Export
+										Accounts into QuickBooks Online</b></p>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Import
+										Purchase Orders into Odoo</b></p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Export
+										Purchase Orders into QuickBooks Online</b></p>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Import
+										Invoices into Odoo</b></p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Export
+										Invoices into QuickBooks Online</b></p>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Import
+										Products into Odoo</b></p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Export Product
+										to QuickBooks Online</b></p>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Export
+										Receipts into Odoo</b></p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col" style="margin: 10px;">
+						<div class="row" style="background-color:#edfcfb; border-radius: 13px;">
+							<div class="col-md-3 text-center">
+								<img class="img img-responsive" style="max-width:20%; margin-top: 11px;"
+									src="check.png" />
+							</div>
+							<div class="col-md-9">
+								<p style="margin-top:10px; color: rgba(0, 0, 17, 1); font-size: 16px;"><b>Export
+										Timesheets into QuickBooks Online</b></p>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</section>
 
 
-</body>
-</html>
+		<section id="ept_screenshots"
+			style="padding: 20px 10px;margin: 20px 0px;background-color:#fff;border-radius: 22px;"
+			class="ept_screenshots">
+			<div class="container" data-aos="fade-up">
+				<div class="s_faq mt32 mb32" style="background-color: transparent !important;">
+					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						<!--1-->
+						<div class="panel-heading mt0 alert"
+							style="border:1px solid transparent !important;border-radius: 10px;box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);background-color:#F0F4F7;padding: 15px 15px;margin: 0;">
+							<h2 class="panel-title mb0">
+								<i
+									style="font-family: Roboto;font-weight:700;color: rgba(0, 0, 200, 1);font-size:30px;">
+									<span class="panelcontent" style="padding: 0% 2%;">SCREENSHOTS
+								</i>
+							</h2>
+						</div>
+						<div class="panel-group" style="margin-bottom:2%; margin-top: 2%;">
+							<div class="panel panel-default" style="box-shadow: unset;">
+								<div class="panel-heading mt0 alert"
+									style="border:1px solid transparent !important;border-radius: 10px;box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);padding: 12px 12px;margin: 0;">
+									<h3 class="panel-title mb0">
+										<a class="collapsed"
+											style="font-family: Roboto;font-weight:500;color: #091E42;font-size:20px;"
+											data-toggle="collapse" href="#collapse_4">
+											<span class="panelcontent" style="padding: 0% 2%;">Quickbooks Backend
+												Configuration
+											</span>
+										</a>
+									</h3>
+								</div>
+								<div id="collapse_4" class="panel-collapse collapse mt16 mb16">
+									<div class="mb16">
+										<img src="backend.png" class="img img-responsive center-block" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 2 -->
+						<div class="panel-group" style="margin-bottom:2%;">
+							<div class="panel panel-default" style="box-shadow: unset;">
+								<div class="panel-heading mt0 alert"
+									style="border:1px solid transparent !important;border-radius: 10px;box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);padding: 15px 15px;margin: 0;">
+									<h3 class="panel-title mb0">
+										<a class="collapsed"
+											style="font-family: Roboto;font-weight:500;color: #091E42;font-size:20px;"
+											data-toggle="collapse" href="#collapse_9">
+											<span class="panelcontent" style="padding: 0% 2%;">Import Data from
+												Quickbooks
+											</span>
+										</a>
+									</h3>
+								</div>
+								<div id="collapse_9" class="panel-collapse collapse mt16 mb16">
+									<div class="mb16">
+										<img src="import.png" class="img img-responsive center-block" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- 3 -->
+						<div class="panel-group" style="margin-bottom:2%;">
+							<div class="panel panel-default" style="box-shadow: unset;">
+								<div class="panel-heading mt0 alert"
+									style="border:1px solid transparent !important;border-radius: 10px;box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);padding: 15px 15px;margin: 0;">
+									<h3 class="panel-title mb0">
+										<a class="collapsed"
+											style="font-family: Roboto;font-weight:500;color: #091E42;font-size:20px;"
+											data-toggle="collapse" href="#collapse_14">
+											<span class="panelcontent" style="padding: 0% 2%;">Export Data to Quickbooks
+											</span>
+										</a>
+									</h3>
+								</div>
+								<div id="collapse_14" class="panel-collapse collapse mt16 mb16">
+									<div class="mb16">
+										<img src="export.png" class="img img-responsive center-block" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 4 -->
+						<div class="panel-group" style="margin-bottom:2%;">
+							<div class="panel panel-default" style="box-shadow: unset;">
+								<div class="panel-heading mt0 alert"
+									style="border:1px solid transparent !important;border-radius: 10px;box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);padding: 15px 15px;margin: 0;">
+									<h3 class="panel-title mb0">
+										<a class="collapsed"
+											style="font-family: Roboto;font-weight:500;color: #091E42;font-size:20px;"
+											data-toggle="collapse" href="#collapse_155">
+											<span class="panelcontent" style="padding: 0% 2%;">Map Odoo and Quickbooks
+												Data
+											</span>
+										</a>
+									</h3>
+								</div>
+								<div id="collapse_155" class="panel-collapse collapse mt16 mb16">
+									<div class="mb16">
+										<img src="mapping.png" class="img img-responsive center-block" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- 5 -->
+						<div class="panel-group" style="margin-bottom:2%;">
+							<div class="panel panel-default" style="box-shadow: unset;">
+								<div class="panel-heading mt0 alert"
+									style="border:1px solid transparent !important;border-radius: 10px;box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);padding: 15px 15px;margin: 0;">
+									<h3 class="panel-title mb0">
+										<a class="collapsed"
+											style="font-family: Roboto;font-weight:500;color: #091E42;font-size:20px;"
+											data-toggle="collapse" href="#collapse_166">
+											<span class="panelcontent" style="padding: 0% 2%;">Sync Sale Orders
+											</span>
+										</a>
+									</h3>
+								</div>
+								<div id="collapse_166" class="panel-collapse collapse mt16 mb16">
+									<div class="mb16">
+										<img src="so.png" class="img img-responsive center-block" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 6 -->
+						<div class="panel-group" style="margin-bottom:2%;">
+							<div class="panel panel-default" style="box-shadow: unset;">
+								<div class="panel-heading mt0 alert"
+									style="border:1px solid transparent !important;border-radius: 10px;box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);padding: 15px 15px;margin: 0;">
+									<h3 class="panel-title mb0">
+										<a class="collapsed"
+											style="font-family: Roboto;font-weight:500;color: #091E42;font-size:20px;"
+											data-toggle="collapse" href="#collapse_177">
+											<span class="panelcontent" style="padding: 0% 2%;">Sync Purchase Orders
+											</span>
+										</a>
+									</h3>
+								</div>
+								<div id="collapse_177" class="panel-collapse collapse mt16 mb16">
+									<div class="mb16">
+										<img src="pos.png" class="img img-responsive center-block" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- 7 -->
+						<div class="panel-group" style="margin-bottom:2%;">
+							<div class="panel panel-default" style="box-shadow: unset;">
+								<div class="panel-heading mt0 alert"
+									style="border:1px solid transparent !important;border-radius: 10px;box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);padding: 15px 15px;margin: 0;">
+									<h3 class="panel-title mb0">
+										<a class="collapsed"
+											style="font-family: Roboto;font-weight:500;color: #091E42;font-size:20px;"
+											data-toggle="collapse" href="#collapse_7">
+											<span class="panelcontent" style="padding: 0% 2%;">Sync Products
+											</span>
+										</a>
+									</h3>
+								</div>
+								<div id="collapse_7" class="panel-collapse collapse mt16 mb16">
+									<div class="mb16">
+										<img src="prod.png" class="img img-responsive center-block" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- 5 -->
+						<div class="panel-group" style="margin-bottom:2%;">
+							<div class="panel panel-default" style="box-shadow: unset;">
+								<div class="panel-heading mt0 alert"
+									style="border:1px solid transparent !important;border-radius: 10px;box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);padding: 15px 15px;margin: 0;">
+									<h3 class="panel-title mb0">
+										<a class="collapsed"
+											style="font-family: Roboto;font-weight:500;color: #091E42;font-size:20px;"
+											data-toggle="collapse" href="#collapse_8">
+											<span class="panelcontent" style="padding: 0% 2%;">Sync Customers
+											</span>
+										</a>
+									</h3>
+								</div>
+								<div id="collapse_8" class="panel-collapse collapse mt16 mb16">
+									<div class="mb16">
+										<img src="customer.png" class="img img-responsive center-block" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 6 -->
+						<div class="panel-group" style="margin-bottom:2%;">
+							<div class="panel panel-default" style="box-shadow: unset;">
+								<div class="panel-heading mt0 alert"
+									style="border:1px solid transparent !important;border-radius: 10px;box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);padding: 15px 15px;margin: 0;">
+									<h3 class="panel-title mb0">
+										<a class="collapsed"
+											style="font-family: Roboto;font-weight:500;color: #091E42;font-size:20px;"
+											data-toggle="collapse" href="#collapse_99">
+											<span class="panelcontent" style="padding: 0% 2%;">Sync All Customers
+											</span>
+										</a>
+									</h3>
+								</div>
+								<div id="collapse_99" class="panel-collapse collapse mt16 mb16">
+									<div class="mb16">
+										<img src="sync_all.png" class="img img-responsive center-block" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 7 -->
+						<div class="panel-group" style="margin-bottom:2%;">
+							<div class="panel panel-default" style="box-shadow: unset;">
+								<div class="panel-heading mt0 alert"
+									style="border:1px solid transparent !important;border-radius: 10px;box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);padding: 15px 15px;margin: 0;">
+									<h3 class="panel-title mb0">
+										<a class="collapsed"
+											style="font-family: Roboto;font-weight:500;color: #091E42;font-size:20px;"
+											data-toggle="collapse" href="#collapse_10">
+											<span class="panelcontent" style="padding: 0% 2%;">Sync Vendors
+											</span>
+										</a>
+									</h3>
+								</div>
+								<div id="collapse_10" class="panel-collapse collapse mt16 mb16">
+									<div class="mb16">
+										<img src="supplier.png" class="img img-responsive center-block" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 8 -->
+						<div class="panel-group" style="margin-bottom:2%;">
+							<div class="panel panel-default" style="box-shadow: unset;">
+								<div class="panel-heading mt0 alert"
+									style="border:1px solid transparent !important;border-radius: 10px;box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);padding: 15px 15px;margin: 0;">
+									<h3 class="panel-title mb0">
+										<a class="collapsed"
+											style="font-family: Roboto;font-weight:500;color: #091E42;font-size:20px;"
+											data-toggle="collapse" href="#collapse_11">
+											<span class="panelcontent" style="padding: 0% 2%;">Sync Invoices
+											</span>
+										</a>
+									</h3>
+								</div>
+								<div id="collapse_11" class="panel-collapse collapse mt16 mb16">
+									<div class="mb16">
+										<img src="invoice.png" class="img img-responsive center-block" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 9 -->
+						<div class="panel-group" style="margin-bottom:2%;">
+							<div class="panel panel-default" style="box-shadow: unset;">
+								<div class="panel-heading mt0 alert"
+									style="border:1px solid transparent !important;border-radius: 10px;box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);padding: 15px 15px;margin: 0;">
+									<h3 class="panel-title mb0">
+										<a class="collapsed"
+											style="font-family: Roboto;font-weight:500;color: #091E42;font-size:20px;"
+											data-toggle="collapse" href="#collapse_12">
+											<span class="panelcontent" style="padding: 0% 2%;">Sync Invoice Payments
+											</span>
+										</a>
+									</h3>
+								</div>
+								<div id="collapse_12" class="panel-collapse collapse mt16 mb16">
+									<div class="mb16">
+										<img src="invpayment.png" class="img img-responsive center-block" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 10 -->
+						<div class="panel-group" style="margin-bottom:2%;">
+							<div class="panel panel-default" style="box-shadow: unset;">
+								<div class="panel-heading mt0 alert"
+									style="border:1px solid transparent !important;border-radius: 10px;box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);padding: 15px 15px;margin: 0;">
+									<h3 class="panel-title mb0">
+										<a class="collapsed"
+											style="font-family: Roboto;font-weight:500;color: #091E42;font-size:20px;"
+											data-toggle="collapse" href="#collapse_13">
+											<span class="panelcontent" style="padding: 0% 2%;">Sync Bills
+											</span>
+										</a>
+									</h3>
+								</div>
+								<div id="collapse_13" class="panel-collapse collapse mt16 mb16">
+									<div class="mb16">
+										<img src="vendorbill.png" class="img img-responsive center-block" /></br></br>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 11 -->
+						<div class="panel-group" style="margin-bottom:2%;">
+							<div class="panel panel-default" style="box-shadow: unset;">
+								<div class="panel-heading mt0 alert"
+									style="border:1px solid transparent !important;border-radius: 10px;box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);padding: 15px 15px;margin: 0;">
+									<h3 class="panel-title mb0">
+										<a class="collapsed"
+											style="font-family: Roboto;font-weight:500;color: #091E42;font-size:20px;"
+											data-toggle="collapse" href="#collapse_144">
+											<span class="panelcontent" style="padding: 0% 2%;">Sync Bill Payments
+											</span>
+										</a>
+									</h3>
+								</div>
+								<div id="collapse_144" class="panel-collapse collapse mt16 mb16">
+									<div class="mb16">
+										<img src="billpayment.png" class="img img-responsive center-block" /></br></br>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section><!-- End About Section -->
+
+		<section id="ept_userguid"  style="padding: 20px 10px;margin: 20px 0px;background-color:#fff;border-radius: 22px;" class="ept_userguid">
+			<div class="container" data-aos="fade-up">
+				<div class="s_faq mt32 mb32" style="background-color: transparent !important;">
+					<div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
+					<div class="panel-heading mt0 alert" style="border:1px solid transparent !important;border-radius: 10px;box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);background-color:#F0F4F7;padding: 15px 15px;margin: 0;">
+									<h2 class="panel-title mb0">
+										<i style="font-family: Roboto;font-weight:700;color: rgba(0, 0, 200, 1);font-size:30px;">
+										<span class="panelcontent" style="padding: 0% 2%;">USER GUIDE 
+										</i>
+									</h2>
+								</div>
+						<div class="panel-group" style="margin-bottom:2%;margin-top: 2%;">
+							<div class="panel panel-default"  style="box-shadow: unset;">
+								<div class="panel-heading mt0 alert" style="border:1px solid transparent !important;border-radius: 10px;box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);padding: 12px 12px;margin: 0;">
+									<h3 class="panel-title mb0">
+										<a class="collapsed"
+											style="font-family: Roboto;font-weight:500;color: #091E42;font-size:20px;"
+											data-toggle="collapse" href="#col_1">
+										<span class="panelcontent" style="padding: 0% 2%;">Quickbooks and Odoo Configuration
+									</h3>
+								</div>
+									<div id="col_1" class="panel-collapse collapse  mb16">
+									<p  style="padding-left: 80px;
+		font-size: 20px;"class="panel-title mb0">
+									We provide a detailed documentation along with module to set up your Quickbooks with Odoo.
+									</p>	
+							</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			   
+		</section>
+	
+		<section id="ept_faqs" style="padding: 20px 10px;margin: 20px 0px;background-color:#fff;border-radius: 22px;"
+			class="ept_faqs">
+			<div class="container" data-aos="fade-up">
+				<div class="s_faq mt32 mb32" style="background-color: transparent !important;">
+
+					<div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
+						<div class="panel-heading mt0 alert"
+							style="border:1px solid transparent !important;border-radius: 10px;box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);background-color:#F0F4F7;padding: 15px 15px;margin: 0;">
+							<h2 class="panel-title mb0">
+								<i
+									style="font-family: Roboto;font-weight:700;color: rgba(0, 0, 200, 1);font-size:30px;">
+									<span class="panelcontent" style="padding: 0% 2%;">FAQ SECTION
+								</i>
+							</h2>
+						</div>
+						<div class="panel-group" style="margin-bottom:2%; margin-top: 2%;">
+							<div class="panel panel-default">
+
+								<div class="panel-heading mt0 alert"
+									style="border:1px solid transparent !important; border-radius:10px; padding:12px 12px; margin:0">
+									<h3 class="panel-title mb0">
+										<a class="collapsed"
+											style="font-family:Roboto; font-weight:500; color:#091E42; font-size:20px"
+											data-toggle="collapse" href="#co1" aria-expanded="false">
+											<span class="panelcontent" style="padding:0% 2%">Does your module support
+												Odoo Community & Enterprise edition?
+											</span>
+										</a>
+									</h3>
+								</div>
+								<div id="co1" class="panel-collapse mt16 mb16 collapse" style="">
+									<div class="mb16">
+										<span>
+											<p class="mb0"
+												style="height:auto; padding-left:2%; margin-left:2%; font-family:Roboto">
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Our module
+												is compatible with both Odoo Community & Enterprise edition.
+												Configuration is same for both edition.</p>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					
+						<div class="panel-group" style="margin-bottom:2%">
+							<div class="panel panel-default">
+								<div class="panel-heading mt0 alert"
+									style="border:1px solid transparent !important; border-radius:10px; padding:15px 15px; margin:0">
+									<h3 class="panel-title mb0">
+										<a class="collapsed"
+											style="font-family:Roboto; font-weight:500; color:#091E42; font-size:20px"
+											data-toggle="collapse" href="#co3" aria-expanded="false">
+											<span class="panelcontent" style="padding:0% 2%">Do we get installation
+												support on purchase of this app?
+											</span>
+										</a>
+									</h3>
+								</div>
+								<div id="co3" class="panel-collapse mt16 mb16 collapse" style="">
+									<div class="mb16">
+										<span>
+											<p class="mb0"
+												style="height:auto; padding-left:2%; margin-left:2%; font-family:Roboto">
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yes. We
+												provide complete support for app installation and its post installation.</p>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="panel-group" style="margin-bottom:2%">
+							<div class="panel panel-default">
+								<div class="panel-heading mt0 alert"
+									style="border:1px solid transparent !important; border-radius:10px; padding:15px 15px; margin:0">
+									<h3 class="panel-title mb0">
+										<a class="collapsed"
+											style="font-family:Roboto; font-weight:500; color:#091E42; font-size:20px"
+											data-toggle="collapse" href="#co4" aria-expanded="false">
+											<span class="panelcontent" style="padding:0% 2%">Do I receive upgrades if I
+												purchase the app?
+											</span>
+										</a>
+									</h3>
+								</div>
+								<div id="co4" class="panel-collapse mt16 mb16 collapse" style="">
+									<div class="mb16">
+										<span>
+											<p class="mb0"
+												style="height:auto; padding-left:2%; margin-left:2%; font-family:Roboto">
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yes. You do
+												receive the updated version of the app you have purchased.</p>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="panel-group" style="margin-bottom:2%">
+							<div class="panel panel-default">
+								<div class="panel-heading mt0 alert"
+									style="border:1px solid transparent !important; border-radius:10px; padding:15px 15px; margin:0">
+									<h3 class="panel-title mb0">
+										<a class="collapsed"
+											style="font-family:Roboto; font-weight:500; color:#091E42; font-size:20px"
+											data-toggle="collapse" href="#co5" aria-expanded="false">
+											<span class="panelcontent" style="padding:0% 2%">Does the app allow two-way
+												syncronization?
+											</span>
+										</a>
+									</h3>
+								</div>
+								<div id="co5" class="panel-collapse mt16 mb16 collapse" style="">
+									<div class="mb16">
+										<span>
+											<p class="mb0"
+												style="height:auto; padding-left:2%; margin-left:2%; font-family:Roboto">
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yes. You can
+												import and export both from Quickbooks Online to Odoo and vice versa.
+												If you want only one-way syncronization, you can reach us
+												at support@techspawn.com for further customization.</p>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="panel-group" style="margin-bottom:2%">
+							<div class="panel panel-default">
+								<div class="panel-heading mt0 alert"
+									style="border:1px solid transparent !important; border-radius:10px; padding:15px 15px; margin:0">
+									<h3 class="panel-title mb0">
+										<a class="collapsed"
+											style="font-family:Roboto; font-weight:500; color:#091E42; font-size:20px"
+											data-toggle="collapse" href="#co6" aria-expanded="false">
+											<span class="panelcontent" style="padding:0% 2%">Can we customize the module?
+											</span>
+										</a>
+									</h3>
+								</div>
+								<div id="co6" class="panel-collapse mt16 mb16 collapse" style="">
+									<div class="mb16">
+										<span>
+											<p class="mb0"
+												style="height:auto; padding-left:2%; margin-left:2%; font-family:Roboto">
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yes. We can customize the module
+												according to your requirement. If you feel like you need some customization, please contact us at
+												support@techspawn.com. Our team will be happy to help you with the
+												customization.</p>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="panel-group" style="margin-bottom:2%">
+							<div class="panel panel-default">
+								<div class="panel-heading mt0 alert"
+									style="border:1px solid transparent !important; border-radius:10px; padding:15px 15px; margin:0">
+									<h3 class="panel-title mb0">
+										<a class="collapsed"
+											style="font-family:Roboto; font-weight:500; color:#091E42; font-size:20px"
+											data-toggle="collapse" href="#co7" aria-expanded="false">
+											<span class="panelcontent" style="padding:0% 2%">Does this module support on odoo.sh?
+											</span>
+										</a>
+									</h3>
+								</div>
+								<div id="co7" class="panel-collapse mt16 mb16 collapse" style="">
+									<div class="mb16">
+										<span>
+											<p class="mb0"
+												style="height:auto; padding-left:2%; margin-left:2%; font-family:Roboto">
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yes. Our module is supported on odoo.sh</p>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="panel-group" style="margin-bottom:2%">
+							<div class="panel panel-default">
+								<div class="panel-heading mt0 alert"
+									style="border:1px solid transparent !important; border-radius:10px; padding:15px 15px; margin:0">
+									<h3 class="panel-title mb0">
+										<a class="collapsed"
+											style="font-family:Roboto; font-weight:500; color:#091E42; font-size:20px"
+											data-toggle="collapse" href="#co8" aria-expanded="false">
+											<span class="panelcontent" style="padding:0% 2%">How can we configure this module in odoo?
+											</span>
+										</a>
+									</h3>
+								</div>
+								<div id="co8" class="panel-collapse mt16 mb16 collapse" style="">
+									<div class="mb16">
+										<span>
+											<p class="mb0"
+												style="height:auto; padding-left:2%; margin-left:2%; font-family:Roboto">
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We provide a very detailed documentation with the module, which
+												will help you set up your Quickbooks Odoo Connector. If you face any issues, feel free to contact us at support@techspawn.com</p>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</section>
+		</div>
+	</section>
+	<div class="carsection">
+		<h2 style='color:#091E42; font-family:"Montserrat";  font-size:45px;text-align:center; margin:25px auto; text-transform:uppercase'
+			class="oe_slogan">
+			<b>Related Products</b>
+		</h2>
+
+		<div id="imageCarousel" class="carousel slide mt60" data-ride="carousel">
+			<!--
+  <ol class="carousel-indicators">
+    <li data-target="#imageCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#imageCarousel" data-slide-to="1"></li>
+    <li data-target="#imageCarousel" data-slide-to="2"></li>
+  -->
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<div class="row">
+						<div class="col-md-4">
+							<a href="https://apps.odoo.com/apps/modules/14.0/odoo_shopify_connector/" target="_blank">
+								<div style="border-radius:10px" class="shadow-sm">
+									<img src="shopify_New_02_V14.gif" class="img-responsive" />
+									<h4 class="mt0 text-truncate"
+										style="padding:6% 4%;  text-align:center; width:100%; font-weight:bold">
+										Odoo Shopify Connector
+									</h4>
+								</div>
+							</a>
+						</div>
+						<div class="col-md-4">
+							<a href="https://apps.odoo.com/apps/modules/14.0/quickbooks_odoo_connector/"
+								target="_blank">
+								<div style="border-radius:10px" class="shadow-sm">
+									<img src="Quickbooks_New_V14.gif" class="img-responsive" />
+									<h4 class="mt0 text-truncate"
+										style="padding:6% 4%; text-align:center; width:100%; font-weight:bold">
+										Quickbooks Odoo Connector
+									</h4>
+								</div>
+							</a>
+						</div>
+						<div class="col-md-4">
+							<a href="https://apps.odoo.com/apps/modules/14.0/odoo_office_tech/" target="_blank">
+								<div style="border-radius:10px" class="shadow-sm">
+									<img src="Office_365_Connector_V14.gif" class="img-responsive" />
+									<h4 class="mt0 text-truncate"
+										style="padding:6% 4%;  text-align:center; width:100%; font-weight:bold">
+										All in One Office365 Connector
+									</h4>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<div class="row">
+						<div class="col-md-4">
+							<a href="https://apps.odoo.com/apps/modules/14.0/warehouse_stock_restrictions/"
+								target="_blank">
+								<div style="border-radius:10px" class="shadow-sm">
+									<img src="Warehouse_Restrictions_V14.gif" class="img-responsive" />
+									<h4 class="mt0 text-truncate"
+										style="padding:6% 4%; text-align:center; width:100%; font-weight:bold">
+										Warehouse Restrictions
+									</h4>
+								</div>
+							</a>
+						</div>
+						<div class="col-md-4">
+							<a href="https://apps.odoo.com/apps/modules/14.0/user_product_restriction/" target="_blank">
+								<div style="border-radius:10px" class="shadow-sm">
+									<img src="Product_Restriction_on_Users_V14.gif" class="img-responsive" />
+									<h4 class="mt0 text-truncate"
+										style="padding:6% 4%;  text-align:center; width:100%; font-weight:bold">
+										Product Restriction on Users
+									</h4>
+								</div>
+							</a>
+						</div>
+						<div class="col-md-4">
+							<a href="https://apps.odoo.com/apps/modules/14.0/sales_reward/" target="_blank">
+								<div style="border-radius:10px" class="shadow-sm">
+									<img src="Reward_Website_New_V14.gif" class="img-responsive" />
+									<h4 class="mt0 text-truncate"
+										style="padding:6% 4%; text-align:center; width:100%; font-weight:bold">
+										Rewards or Loyalty Points for POS and Website
+									</h4>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<a class="carousel-control-prev" href="#imageCarousel" data-slide="prev"
+				style="width:35px; color:#000; margin-left:-30px">
+				<span class="carousel-control-prev-icon"><i class="fa fa-chevron-left"
+						style="font-size:24px"></i></span>
+			</a>
+			<a class="carousel-control-next" href="#imageCarousel" data-slide="next"
+				style="width:35px; color:#000; margin-right:-30px">
+				<span class="carousel-control-next-icon"><i class="fa fa-chevron-right"
+						style="font-size:24px"></i></span>
+			</a>
+		</div>
+	</div>
+</section>
+
+
+<div class="contact_us_section" style="margin-top:30px;">
+	<h3 style="text-align: center;margin-bottom: 20px; font-size: 20px;">Contact & Support</h3>
+	<h2 style="text-align: center;margin-bottom: 40px;">Expert Ideas and ERP Solution To Help You Grow</h2>
+	<p class="oe_slogan" style="font-size:18px">
+		Get expert help and assistance related to the new Odoo features and all ERP Related solutions at one place.
+		We offer solutions regardless the size of a business, contact us through e-mail at <a
+			href="mailto:sales@techspawn.com">sales@techspawn.com</a>
+		and get professional help that you want to build your business better.
+		In case of any question regarding please reach out to us on<a href="mailto:Support@techspawn.com">
+			support@techspawn.com </a>
+	</p>
+	<div class="col-md-12" style=" display: inline-flex;">
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<center><img src="logo.png" style=""></center>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
+	<!-- ContactUs And Support -->
+	<section class="oe_container">
+		<div class="row mb64" style="display:block; margin:0 auto; width:100%; text-align:center">
+			<div class="mt32" style="display:inline-block; margin:0px 10px">
+				<a href="mailto:mailto:sales@techspawn.com" style="font-family:&quot;Montserrat&quot;">
+					<h4 class="mt16 mb0"
+						style="padding:16px 30px; font-family:&quot;Montserrat&quot; text-transform:uppercase; text-align:center; border-radius:10px; color:#fff; font-weight:700; background-color:#087dda">
+						Email Us</h4>
+				</a>
+			</div>
+			<!--
+		  <div class="mt32" style="display:none; margin:0px 10px">
+	<a href="https://techspawn.com/connect-with-techspawn" style="font-family:&quot;Montserrat&quot;">
+				  <h4 class="mt16 mb0" style="padding:16px 17px; font-family:&quot;Montserrat&quot; text-transform:uppercase; text-align:center; border-radius:10px; color:#fff; font-weight:700; background-color:#ffae1f">Contact Us</h4>
+			  </a>
+		  </div>
+		  -->
+		</div>
+
+	</section>
+</div>
