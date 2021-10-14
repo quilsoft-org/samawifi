@@ -1,0 +1,69 @@
+<odoo>
+    <record id="sale_order_form_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.view.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">
+                <field name="real_cost"/>
+                <field name="real_cost_subtotal"/>
+                <field name="real_margin" invisible="1"/>
+                <field name="real_margin_percent" invisible="1"/>
+            </xpath>
+            <field name="amount_total" position="after">
+                <field name="total_real_cost"/>
+                <label for="real_margin" groups="base.group_user"/>
+                <div class="text-nowrap" groups="base.group_user">
+                    <field name="real_margin" class="oe_inline"/>
+                    <span class="oe_inline" attrs="{'invisible': [('amount_untaxed', '=', 0)]}">
+                        (<field name="real_margin_percent" nolabel="1" class="oe_inline" widget="percentage"/>)
+                    </span>
+                </div>
+            </field>
+        </field>
+    </record>
+    <record id="sale_quotation_tree_inherit" model="ir.ui.view">
+        <field name="name">sale.quotation.tree.view.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="total_real_cost" optional="hide"/>
+                <field name="real_margin" optional="hide"/>
+                <field name="real_margin_percent" optional="hide" widget="percentage"/>
+            </field>
+        </field>
+    </record>
+    <record id="sale_order_tree_inherit" model="ir.ui.view">
+        <field name="name">sale.order.tree.view.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="total_real_cost" optional="hide"/>
+                <field name="real_margin" optional="hide"/>
+                <field name="real_margin_percent" optional="hide" widget="percentage"/>
+            </field>
+        </field>
+    </record>
+    <record id="sale_report_pivot_inherit" model="ir.ui.view">
+        <field name="name">sale.report.pivot.view.inherit</field>
+        <field name="model">sale.report</field>
+        <field name="inherit_id" ref="sale_enterprise.sale_report_view_pivot"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='price_total']" position="after">
+                <field name="real_margin" type="measure"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="sale_report_pivot_sama_inherit" model="ir.ui.view">
+        <field name="name">sale.report.pivot.sama.view.inherit</field>
+        <field name="model">sale.report.sama</field>
+        <field name="inherit_id" ref="itatix_sales_person_target.view_order_product_pivot_sama"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='price_subtotal']" position="after">
+                <field name="real_margin" type="measure"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
