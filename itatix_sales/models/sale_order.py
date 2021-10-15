@@ -1,5 +1,5 @@
-from odoo import fields, models, api
-
+from odoo import fields, models, api,_
+from odoo.exceptions import UserError
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -7,7 +7,8 @@ class SaleOrder(models.Model):
     total_real_cost = fields.Monetary(string="Costo Real", compute='_compute_real_margin', store=True)
     real_margin = fields.Monetary(string="Margen Real", compute='_compute_real_margin', store=True)
     real_margin_percent = fields.Float(string="Margen Real (%)", compute='_compute_real_margin', store=True)
-
+    
+    
     @api.depends('order_line.real_margin','order_line.real_cost_subtotal', 'amount_untaxed')
     def _compute_real_margin(self):
         if not all(self._ids):
@@ -30,6 +31,8 @@ class SaleOrder(models.Model):
                 order.total_real_cost = sum(order.order_line.mapped('real_cost_subtotal'))
                 order.real_margin = mapped_data.get(order.id, 0.0)
                 order.real_margin_percent = order.amount_untaxed and order.real_margin / order.amount_untaxed
+    
+
 
 
 
@@ -47,3 +50,10 @@ class SaleOrderLine(models.Model):
             line.real_cost_subtotal = line.real_cost * line.product_uom_qty
             line.real_margin = line.price_subtotal - line.real_cost_subtotal
             line.real_margin_percent = line.price_subtotal and (line.real_margin / line.price_subtotal)*100
+    
+    @api.model
+    def create(self,vals):
+        if vals['real_cost'] <=0:
+            raise UserError(_('El costo real debe de ser mayor a cero en cada una de las lineas'))
+        
+        return super(SaleOrderLine,self).create(vals)
