@@ -53,7 +53,7 @@ class SaleOrderLine(models.Model):
     
     @api.model
     def create(self,vals):
-        if vals['real_cost'] <=0:
+        if vals['real_cost'] <=0 and vals['display_type'] != 'line_section' and vals['display_type'] != 'line_note':
             raise UserError(_('El costo real debe de ser mayor a cero en cada una de las lineas'))
         
         return super(SaleOrderLine,self).create(vals)
