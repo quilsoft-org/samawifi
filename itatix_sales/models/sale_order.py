@@ -32,6 +32,14 @@ class SaleOrder(models.Model):
                 order.real_margin = mapped_data.get(order.id, 0.0)
                 order.real_margin_percent = order.amount_untaxed and order.real_margin / order.amount_untaxed
     
+    
+    def action_confirm(self):
+        for line in self.order_line:        
+            if line.real_cost <=0 and line.display_type != 'line_section' and  line.display_type != 'line_note':
+                raise UserError(_('El costo real debe de ser mayor a cero en cada una de las lineas'))
+        
+        return super(SaleOrder,self).action_confirm()
+    
 
 
 
@@ -50,10 +58,3 @@ class SaleOrderLine(models.Model):
             line.real_cost_subtotal = line.real_cost * line.product_uom_qty
             line.real_margin = line.price_subtotal - line.real_cost_subtotal
             line.real_margin_percent = line.price_subtotal and (line.real_margin / line.price_subtotal)*100
-    
-    @api.model
-    def create(self,vals):
-        if vals['real_cost'] <=0 and vals['display_type'] != 'line_section' and vals['display_type'] != 'line_note':
-            raise UserError(_('El costo real debe de ser mayor a cero en cada una de las lineas'))
-        
-        return super(SaleOrderLine,self).create(vals)

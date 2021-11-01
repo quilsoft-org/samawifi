@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">
-                <field name="real_cost"/>
+                <field name="real_cost" attrs="{'readonly':[('state','!=','draft')]}"/>
                 <field name="real_cost_subtotal" optional="hide"/>
                 <field name="real_margin" invisible="1"/>
                 <field name="real_margin_percent" invisible="1"/>
