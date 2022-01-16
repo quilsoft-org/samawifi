@@ -4,7 +4,7 @@
     'description': "Custom Fields for PeruggySama",
     'summary': 'Real Cost and Reports',
     'author': "ITATIX SA DE CV",
-    "version": '14.0.0.0',
+    "version": '14.0.0.3',
     'depends': ['sale','sale_management','sale_enterprise','crm','account','sale_crm'],
     'data': [
         'security/ir.model.access.csv',

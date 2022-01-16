@@ -17,7 +17,7 @@ class CrmLead(models.Model):
             if r.invoice_origin:
                 so = self.env['sale.order'].search([('name','=',r.invoice_origin)])
                 if so:
-                    r.region_id = r.so.region_id.id
+                    r.region_id = so.region_id.id
                 else:
                     r.region_id = False
             else:
