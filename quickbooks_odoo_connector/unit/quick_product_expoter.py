@@ -78,7 +78,7 @@ class QboProductExport(QuickExportAdapter):
                 "value": asset_value or None,
             },
             "TrackQtyOnHand": track_all,
-            "QtyOnHand": arguments[1].qty_available or None,
+            "QtyOnHand": arguments[1].qty_available or 0,
             "InvStartDate": arguments[1].create_date.strftime("%Y-%m-%d %H:%M:%S"),
             'SalesTaxCodeRef': {
                 "value": arguments[1].taxes_id.quickbook_id or None,
