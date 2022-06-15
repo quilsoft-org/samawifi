@@ -240,30 +240,12 @@ class quick_customer(models.Model):
                     raise Warning('Create Pricelist of Currency' + str(rec['CurrencyRef'].get('value')) + ' - ' + str(rec['CurrencyRef'].get('name')))
                 currency = self.env['res.currency'].search([('name', '=', rec['CurrencyRef'].get('value'))]).id
 
-        # if (supplier_rank > 0):
-        #     partner_id = self.env['res.partner'].search(
-        #         [('quickbook_id', '=', quickbook_id), ('supplier_rank', '>', 0),('backend_id', '=', backend_id)])
-        # elif (customer_rank > 0):
-        #     partner_id = self.env['res.partner'].search(
-        #         [('quickbook_id', '=', quickbook_id),('customer_rank', '>', 0),('backend_id', '=', backend_id)])
-
         if (supplier_rank > 0):
-
             partner_id = self.env['res.partner'].search(
-                [('quickbook_id', '=', quickbook_id), ('supplier_rank', '>', 0), ('backend_id', '=', backend_id)])
-            if not partner_id:
-                partner_id = self.env['res.partner'].search(
-                    [('name', '=', name), ('supplier_rank', '>', 0)])
-                if len(partner_id) > 1:
-                    raise UserError("Two vendor with {} same name were found!".format(name))
+                [('quickbook_id', '=', quickbook_id), ('supplier_rank', '>', 0),('backend_id', '=', backend_id)])
         elif (customer_rank > 0):
             partner_id = self.env['res.partner'].search(
-                [('quickbook_id', '=', quickbook_id), ('customer_rank', '>', 0), ('backend_id', '=', backend_id)])
-            if not partner_id:
-
-                partner_id = self.env['res.partner'].search([('name', '=', name), ('customer_rank', '>', 0)])
-                if len(partner_id) > 1:
-                    raise UserError("Two customers with {} same name were found!".format(name))
+                [('quickbook_id', '=', quickbook_id),('customer_rank', '>', 0),('backend_id', '=', backend_id)])
         vals = {
             'first_name': first_name,
             'last_name': last_name,
