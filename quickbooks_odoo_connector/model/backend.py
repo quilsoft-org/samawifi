@@ -90,7 +90,7 @@ class bk_backend(models.Model):
             scope = self.scope
         qbo = OAuth2Session(self.client_key, scope=scope, redirect_uri=self.redirect_uri)
         authorization_url, state = qbo.authorization_url(self.oauth2_authorization_base_url)
-        print('Please go here and authorize,', authorization_url)
+        
         self.write({'o2_go_to': authorization_url,
                     'o2_auth_url': self.o2_auth_url, })
 
@@ -111,7 +111,7 @@ class bk_backend(models.Model):
         redirect_response = self.o2_auth_url
         fetch_toke = qbo.fetch_token(self.token_url, client_secret=self.client_secret,
                                      authorization_response=redirect_response)
-        print(fetch_toke)
+        
         self.write({'token_type': fetch_toke.get('token_type'),
                     'x_refresh_token_expires_in': fetch_toke.get('x_refresh_token_expires_in'),
                     'refresh_token': fetch_toke.get('refresh_token'),
@@ -121,7 +121,7 @@ class bk_backend(models.Model):
         self.write({'token': fetch_toke})
         con_url = self.location + self.company_id + '/customer/1'
         r = qbo.get(con_url)
-        print(r.content)
+        
 
     def qb_auth_o2_auto_step2(self, context):
         obj = self.env['qb.backend'].search([('id', '=', context['id'])])
@@ -137,7 +137,7 @@ class bk_backend(models.Model):
         redirect_response = context['o2_auth_url']
         fetch_toke = qbo.fetch_token(context['token_url'], client_secret=context['client_secret'],
                                      authorization_response=redirect_response)
-        print(fetch_toke)
+        
         obj.write({'token_type': fetch_toke.get('token_type'),
                    'x_refresh_token_expires_in': fetch_toke.get('x_refresh_token_expires_in'),
                    'refresh_token': fetch_toke.get('refresh_token'),
@@ -147,7 +147,7 @@ class bk_backend(models.Model):
         obj.write({'token': fetch_toke})
         con_url = context['location'] + context['company_id'] + '/customer/1'
         r = qbo.get(con_url)
-        print(r.content)
+        
 
     def test_connection(self):
         """ Test backend connection """
@@ -209,7 +209,7 @@ class bk_backend(models.Model):
                         'x_refresh_token_expires_in': keys['x_refresh_token_expires_in'],
                         'expires_in': keys['expires_in'], })
             self.write({'token': fetch_toke})
-        print(fetch_toke.content)
+        
 
     def refresh_connection_action(self):
 
@@ -241,7 +241,7 @@ class bk_backend(models.Model):
                         'x_refresh_token_expires_in': keys['x_refresh_token_expires_in'],
                         'expires_in': keys['expires_in'], })
             self.write({'token': fetch_toke})
-        print(fetch_toke.content)
+        
 
     def qb_authorization(self):
 
@@ -255,7 +255,7 @@ class bk_backend(models.Model):
         # Cut and paste the authorization_url and run it in a browser
         authorization_url = oauth.authorization_url(
             self.authorization_base_url)
-        print('Please go here and authorize,', authorization_url)
+        
         webbrowser.open(authorization_url)
         self.write({'go_to': authorization_url})
         # 4. Get the authorization verifier code from the casllback url
@@ -513,11 +513,14 @@ class bk_backend(models.Model):
 
     def import_customers_new(self):
         """ Import categories from all websites """
+
         for backend in self:
             backend.import_customer_new()
         return True
 
     def import_customer(self):
+
+
         import_start_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         backend_id = self.id
         from_date = None
@@ -529,6 +532,7 @@ class bk_backend(models.Model):
         return True
 
     def import_customers(self):
+
         """ Import Employees From QBO """
         for backend in self:
             backend.import_customer()

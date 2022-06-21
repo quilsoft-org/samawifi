@@ -55,14 +55,14 @@ class QboInvoiceExport(QuickExportAdapter):
         temp_array = []
         taxcodeqb_id = None
         lst = []
-        sum1 = 0
+        sum = 0
         total_amt = 0
         
         for i in arguments[1].invoice_line_ids:
 
             discount_value =(i.quantity *i.price_unit) * i.discount/100
             lst.append(discount_value)
-            sum1 = sum1 + discount_value
+            sum = sum + discount_value
             final = i.quantity *i.price_unit
             total_amt = total_amt + final
         if arguments[1].invoice_line_ids:
@@ -95,7 +95,7 @@ class QboInvoiceExport(QuickExportAdapter):
                 }
                 true = True
                 false = False
-                dics = {"DetailType": "DiscountLineDetail", "Amount": sum1,"DiscountLineDetail": {"DiscountAccountRef": {"name": 'Discounts given',"value": "144"},"PercentBased": false}}
+                dics = {"DetailType": "DiscountLineDetail", "Amount": sum,"DiscountLineDetail": {"DiscountAccountRef": {"name": 'Discounts given',"value": "144"},"PercentBased": false}}
 
                 if not arguments[1].env.company.partner_id.country_id.code is 'US':
                     temp.get("SalesItemLineDetail").get('TaxCodeRef').update({'value': taxcodeqb_id })
@@ -160,7 +160,11 @@ class QboInvoiceExport(QuickExportAdapter):
                     taxcodeqb_id = order_line.tax_ids.quickbook_id
                 else:
                     taxcoderef = "NON"
-
+                discount = order_line.discount
+                if discount:
+                    unit_price = order_line.price_subtotal / order_line.quantity
+                else:
+                    unit_price = order_line.price_unit
                 temp = {
 
                     "Description" : order_line.name or None,
@@ -170,7 +174,7 @@ class QboInvoiceExport(QuickExportAdapter):
                         "ItemRef" : {
                             "value" : product_template_id.quickbook_id or None
                         },
-                    "UnitPrice" : order_line.price_unit,
+                    "UnitPrice" : unit_price,
                     "Qty" : order_line.quantity,
                     "TaxCodeRef" : {
                         "value" : taxcoderef
