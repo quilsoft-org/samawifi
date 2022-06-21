@@ -26,7 +26,7 @@
     # any module necessary for this one to work correctly
     'depends': ['base', 'sale', 'sale_management', 'stock', 'purchase', 'hr'],
     'price': 149.00,
-    'currency': 'USD',
+    'currency': 'EUR',
 
     # always loaded
     'data': [

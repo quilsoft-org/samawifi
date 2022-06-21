@@ -513,14 +513,11 @@ class bk_backend(models.Model):
 
     def import_customers_new(self):
         """ Import categories from all websites """
-
         for backend in self:
             backend.import_customer_new()
         return True
 
     def import_customer(self):
-
-
         import_start_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         backend_id = self.id
         from_date = None
@@ -532,7 +529,6 @@ class bk_backend(models.Model):
         return True
 
     def import_customers(self):
-
         """ Import Employees From QBO """
         for backend in self:
             backend.import_customer()

@@ -155,16 +155,8 @@ class quickbook_employee(models.Model):
 
             if rec['Id']:
                 quickbook_id = rec['Id']
-
         partner_id = self.env['hr.employee'].search([('quickbook_id', '=', quickbook_id),
                                                              ('backend_id', '=', backend_id)])
-        if not partner_id:
-
-
-            partner_id = self.env['hr.employee'].search(
-                [('name', '=', name)])
-            if len(partner_id) > 1:
-                raise UserError("Two employees with {} same name were found!".format(name))
 
         vals = {
             'name': name or rec.get('DisplayName'),
