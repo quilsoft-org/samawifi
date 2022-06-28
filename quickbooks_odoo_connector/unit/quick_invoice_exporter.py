@@ -160,7 +160,11 @@ class QboInvoiceExport(QuickExportAdapter):
                     taxcodeqb_id = order_line.tax_ids.quickbook_id
                 else:
                     taxcoderef = "NON"
-
+                discount = order_line.discount
+                if discount:
+                    unit_price = order_line.price_subtotal / order_line.quantity
+                else:
+                    unit_price = order_line.price_unit
                 temp = {
 
                     "Description" : order_line.name or None,
@@ -170,7 +174,7 @@ class QboInvoiceExport(QuickExportAdapter):
                         "ItemRef" : {
                             "value" : product_template_id.quickbook_id or None
                         },
-                    "UnitPrice" : order_line.price_unit,
+                    "UnitPrice" : unit_price,
                     "Qty" : order_line.quantity,
                     "TaxCodeRef" : {
                         "value" : taxcoderef

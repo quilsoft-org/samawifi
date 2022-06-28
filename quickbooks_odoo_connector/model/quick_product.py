@@ -106,6 +106,7 @@ class quickbook_product_template(models.Model):
         record = data
         _logger.info("API DATA :%s", data)
         if 'Item' in record:
+
             rec = record['Item']
 
             if 'Name' in rec:
@@ -208,6 +209,15 @@ class quickbook_product_template(models.Model):
 
         item_id = self.env['product.template'].search(
             [('quickbook_id', '=', quickbook_id), ('backend_id', '=', backend_id)])
+
+        if not item_id:
+
+
+            item_id = self.env['product.template'].search(
+                    [('name', '=', name)])
+            if len(item_id) > 1:
+                raise UserError("Two products with {} same name were found!".format(name))
+
         vals = {
             'name': name,
             'active': active,
@@ -230,8 +240,9 @@ class quickbook_product_template(models.Model):
             'backend_id': backend_id,
             'quickbook_id': quickbook_id,
         }
-
         if not item_id:
+            print(vals)
+
             try:
                 return super(quickbook_product_template, self).create(vals)
             except:

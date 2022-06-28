@@ -20,7 +20,7 @@ import logging
 import time
 
 from datetime import datetime
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.exceptions import Warning
 from requests_oauthlib import OAuth2Session
 from ..unit.quick_payment_exporter import QboPaymentExport
@@ -38,6 +38,8 @@ class quickbook_acount_payment(models.Model):
     quickbook_id = fields.Char(
         string='ID on Quickbook', readonly=False, required=False)
     sync_date = fields.Datetime(string='Last synchronization date')
+    linked_doc_number = fields.Char(
+        string='Linked txnReferenceNumber', readonly=False, required=False)
 
     @api.model
     def create(self, vals):
@@ -94,12 +96,15 @@ class quickbook_acount_payment(models.Model):
                               (datetime.now() - start).seconds)
             return result
 
+
     def payment_import_mapper(self, backend_id, data):
         record = data
         _logger.info("API DATA :%s", data)
+
         ID = []
         if 'Payment' in record:
             rec = record['Payment']
+            linked_doc_number = ''
             if 'CustomerRef' in rec:
                 partner_id = self.env['res.partner'].search(
                     [('quickbook_id', '=', rec['CustomerRef']['value'])])
@@ -111,6 +116,17 @@ class quickbook_acount_payment(models.Model):
             else:
                 partner_ids = False
                 partner_type = None
+
+            if 'TxnDate' in rec:
+                payment_date = rec['TxnDate']
+            else:
+                payment_date = None
+
+            if rec['Id']:
+                quickbook_id = rec['Id']
+
+            if 'CurrencyRef' in rec.keys():
+                currency = self.env['res.currency'].search([('name', '=', rec['CurrencyRef'].get('value'))]).id
 
             if 'Line' in rec:
                 for lines in rec['Line']:
@@ -142,31 +158,75 @@ class quickbook_acount_payment(models.Model):
                                 diffrence = amount - inv_id.amount_total
                             else:
                                 diffrence = inv_id.amount_total - amount
-                if diffrence > 0.0:
-                    payment_difference_handling = 'open'
-                    writeoff_account_id = None
-                else:
-                    payment_difference_handling = 'reconcile'
-                    writeoff_account_id = partner_id.property_account_receivable_id.id
 
-            if 'TxnDate' in rec:
-                payment_date = rec['TxnDate']
-            else:
-                payment_date = None
+                            if diffrence > 0.0:
+                                payment_difference_handling = 'open'
+                                writeoff_account_id = None
+                            else:
+                                payment_difference_handling = 'reconcile'
+                                writeoff_account_id = partner_id.property_account_receivable_id.id
+                    for data in lines['LineEx']:
+                        for dict_data in lines['LineEx']['any']:
+                            if dict_data['value']['Name'] == 'txnReferenceNumber':
+                                if 'Value' in dict_data['value']:
+                                    linked_doc_number = dict_data['value']['Value']
+                    if lines['Amount']:
+                        total_amt = lines['Amount']
+                    else:
+                        total_amt = 0
+                    payment_id = self.env['account.payment'].search(
+                        [('quickbook_id', '=', quickbook_id),
+                         ('backend_id', '=', backend_id)])
+                    if ID and state == 'posted':
+                        vals = {
+                            'partner_id': partner_ids,
+                            'partner_type': partner_type,
+                            'ref': communication,
+                            'date': payment_date or rec['TxnDate'],
+                            'amount': total_amt,
+                            'journal_id': journal_id.id,
+                            'payment_type': payment_type,
+                            'payment_method_id': payment_method_id,
+                            'backend_id': backend_id,
+                            'quickbook_id': quickbook_id,
+                            'currency_id': currency,
+                        }
+                        if 'Payment' in record:
+                            vals.update({'linked_doc_number':linked_doc_number})
+                        if not payment_id:
+                            payment = super(quickbook_acount_payment, self).create(vals)
+                            payment.action_post()
 
-            if rec['Id']:
-                quickbook_id = rec['Id']
+                            if 'Payment' in record:
+                                if linked_doc_number:
+                                    a = self.env['account.move'].search([('name', '=', payment.name)])
+                                    b = self.env['account.move'].search([('doc_number','=', payment.linked_doc_number)])
+                                    for l in b.line_ids:
+                                        if b.partner_id.property_account_receivable_id == l.account_id:
+                                            lines = l
+                                    if type(lines) != dict:
+                                        payment_lines = a.line_ids
+                                        for account in payment_lines.account_id:
+                                            (payment_lines + lines).filtered_domain([('account_id', '=', account.id), ('reconciled', '=', False)]).reconcile()
 
-            if rec['TotalAmt']:
-                total_amt = rec['TotalAmt']
-            else:
-                total_amt = 0
-
-            if 'CurrencyRef' in rec.keys():
-                currency = self.env['res.currency'].search([('name', '=', rec['CurrencyRef'].get('value'))]).id
+                            if 'BillPayment' in record:
+                                if linked_doc_number:
+                                    a = self.env['account.move'].search([('name', '=', payment.name)])
+                                    b = self.env['account.move'].search([('quickbook_id','=', payment.linked_doc_number)])
+                                    for line in b.line_ids:
+                                        if b.partner_id.property_account_payable_id == line.account_id:
+                                            lines = line
+                                    if type(lines) != dict:
+                                        payment_lines = a.line_ids
+                                        for account in payment_lines.account_id:
+                                            (payment_lines + lines).filtered_domain([('account_id', '=', account.id), ('reconciled', '=', False)]).reconcile()
+                        else:
+                            payment = payment_id.write(vals)
+            return
 
         elif 'BillPayment' in record:
             rec = record['BillPayment']
+            linked_doc_number = ''
             if 'VendorRef' in rec:
                 partner_id = self.env['res.partner'].search(
                     [('quickbook_id', '=', rec['VendorRef']['value'])])
@@ -192,6 +252,8 @@ class quickbook_acount_payment(models.Model):
                             if inv_id:
                                 ID = inv_id.id
                                 state = inv_id.state
+
+                            linked_doc_number = trnx['TxnId']
 
             if rec['PayType'] == 'Check':
                 payment_method_id = 2
@@ -254,13 +316,42 @@ class quickbook_acount_payment(models.Model):
                 'currency_id': currency,
             }
 
+            if 'Payment' in record:
+                vals.update({'linked_doc_number':linked_doc_number})
+
+            if 'BillPayment' in record:
+                vals.update({'linked_doc_number':linked_doc_number})
+
             if not payment_id:
                 payment = super(quickbook_acount_payment, self).create(vals)
                 payment.action_post()
-                return payment
+
+                if 'Payment' in record:
+                    if linked_doc_number:
+                        a = self.env['account.move'].search([('name', '=', payment.name)])
+                        b = self.env['account.move'].search([('doc_number','=', payment.linked_doc_number)])
+                        for l in b.line_ids:
+                            if b.partner_id.property_account_receivable_id == l.account_id:
+                                lines = l
+                        if type(lines) != dict:
+                            payment_lines = a.line_ids
+                            for account in payment_lines.account_id:
+                                (payment_lines + lines).filtered_domain([('account_id', '=', account.id), ('reconciled', '=', False)]).reconcile()
+
+                if 'BillPayment' in record:
+                    if linked_doc_number:
+                        a = self.env['account.move'].search([('name', '=', payment.name)])
+                        b = self.env['account.move'].search([('quickbook_id','=', payment.linked_doc_number)])
+                        for line in b.line_ids:
+                            if b.partner_id.property_account_payable_id == line.account_id:
+                                lines = line
+                        if type(lines) != dict:
+                            payment_lines = a.line_ids
+                            for account in payment_lines.account_id:
+                                (payment_lines + lines).filtered_domain([('account_id', '=', account.id), ('reconciled', '=', False)]).reconcile()
             else:
                 payment = payment_id.write(vals)
-                return payment
+            return payment
 
     def payment_import_batch(self, model_name, backend_id, filters=None):
         """ Import Payment Details. """
