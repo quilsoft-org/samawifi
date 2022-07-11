@@ -95,15 +95,21 @@ class QboInvoiceExport(QuickExportAdapter):
                 }
                 true = True
                 false = False
-                dics = {"DetailType": "DiscountLineDetail", "Amount": sum,"DiscountLineDetail": {"DiscountAccountRef": {"name": 'Discounts given',"value": "144"},"PercentBased": false}}
+                a = arguments[1].env['account.account'].search([('name', '=', 'Discounts given')]).quickbook_id
+                dics = {"DetailType": "DiscountLineDetail", "Amount": sum,"DiscountLineDetail": {"DiscountAccountRef": {"name": 'Discounts given',"value": a},"PercentBased": false}}
 
                 if not arguments[1].env.company.partner_id.country_id.code is 'US':
                     temp.get("SalesItemLineDetail").get('TaxCodeRef').update({'value': taxcodeqb_id })
                 temp_array.append(temp)
                 temp_array.append(dics)
+
+                if arguments[1].doc_number:
+                    docnumber = arguments[1].doc_number
+                else:
+                    docnumber = arguments[1].name
         result_dict = {
             "TxnDate": arguments[1].invoice_date,
-            "DocNumber": arguments[1].name,
+            "DocNumber": docnumber,
             "Line": temp_array,
             "TxnTaxDetail": {
                 "TxnTaxCodeRef": {
@@ -185,9 +191,14 @@ class QboInvoiceExport(QuickExportAdapter):
                 if not arguments[1].env.company.partner_id.country_id.code is 'US':
                     temp.get("ItemBasedExpenseLineDetail").get('TaxCodeRef').update({'value': taxcodeqb_id })
                 temp_array.append(temp)
+
+                if arguments[1].doc_number:
+                    docn = arguments[1].doc_number
+                else:
+                    docn = arguments[1].ref
         result_dict = {
                     "TxnDate": arguments[1].invoice_date,
-                    "DocNumber": arguments[1].ref,
+                    "DocNumber": docn,
                     "Line": temp_array,
                     "TxnTaxDetail": {
                         "TxnTaxCodeRef": {
