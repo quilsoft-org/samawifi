@@ -31,7 +31,8 @@ class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
 
     @api.model
-    def _prepare_purchase_order_line_from_procurement(self, product_id, product_qty, product_uom, company_id, values, po):
+    def _prepare_purchase_order_line_from_procurement(self, product_id, product_qty, product_uom, company_id, values,
+                                                      po):
         result = super(PurchaseOrderLine, self)._prepare_purchase_order_line_from_procurement(
             product_id, product_qty, product_uom, company_id, values, po
         )
@@ -63,7 +64,7 @@ class PurchaseOrderLine(models.Model):
         dict_values = {
             "discount": seller.discount,
             "price_list": seller.price_list
-         }
+        }
         return dict_values
 
     @api.depends("discount")
@@ -76,7 +77,6 @@ class PurchaseOrderLine(models.Model):
             {
                 "price_unit": self._get_discounted_price_unit()
             })
-        self.price_unit = self._get_discounted_price_unit()
         return vals
 
     discount = fields.Float(string="Discount (%)", digits="Discount")
@@ -90,6 +90,10 @@ class PurchaseOrderLine(models.Model):
         )
     ]
 
+    @api.onchange('price_list')
+    def onchange_price_list(self):
+        self.price_unit = self._get_discounted_price_unit()
+
     def _get_discounted_price_unit(self):
         self.ensure_one()
         if self.discount:
@@ -98,13 +102,13 @@ class PurchaseOrderLine(models.Model):
 
     def _get_stock_move_price_unit(self):
         price_unit = False
-        price = self._get_discounted_price_unit()
+        price = self._get_discounted_price_unit()  # get price_list
         if price != self.price_unit:
             price_unit = self.price_unit
-            self.price_unit = price
+            # self.price_unit = price
         price = super()._get_stock_move_price_unit()
-        if price_unit:
-            self.price_unit = price_unit
+        # if price_unit:
+        #    self.price_unit = price_unit
         return price
 
     @api.onchange("product_qty", "product_uom")
@@ -135,7 +139,7 @@ class PurchaseOrderLine(models.Model):
         res = super(PurchaseOrderLine, self)._prepare_account_move_line(move)
         res.update(
             {
-                'discount':self.discount,
+                'discount': self.discount,
                 'price_unit': self.price_list
             }
         )
