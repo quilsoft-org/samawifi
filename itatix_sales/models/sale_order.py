@@ -1,5 +1,6 @@
-from odoo import fields, models, api,_
+from odoo import fields, models, api, _
 from odoo.exceptions import UserError
+
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -7,9 +8,8 @@ class SaleOrder(models.Model):
     total_real_cost = fields.Monetary(string="Costo Real", compute='_compute_real_margin', store=True)
     real_margin = fields.Monetary(string="Margen Real", compute='_compute_real_margin', store=True)
     real_margin_percent = fields.Float(string="Margen Real (%)", compute='_compute_real_margin', store=True)
-    
-    
-    @api.depends('order_line.real_margin','order_line.real_cost_subtotal', 'amount_untaxed')
+
+    @api.depends('order_line.real_margin', 'order_line.real_cost_subtotal', 'amount_untaxed')
     def _compute_real_margin(self):
         if not all(self._ids):
             for order in self:
@@ -31,30 +31,26 @@ class SaleOrder(models.Model):
                 order.total_real_cost = sum(order.order_line.mapped('real_cost_subtotal'))
                 order.real_margin = mapped_data.get(order.id, 0.0)
                 order.real_margin_percent = order.amount_untaxed and order.real_margin / order.amount_untaxed
-    
-    
+
     def action_confirm(self):
-        for line in self.order_line:        
-            if line.real_cost <=0 and line.display_type != 'line_section' and  line.display_type != 'line_note':
+        for line in self.order_line:
+            if line.real_cost <= 0 and line.display_type != 'line_section' and line.display_type != 'line_note':
                 raise UserError(_('El costo real debe de ser mayor a cero en cada una de las lineas'))
-        
-        return super(SaleOrder,self).action_confirm()
-    
 
-
+        return super(SaleOrder, self).action_confirm()
 
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     real_cost = fields.Float(string="Costo Real")
-    real_cost_subtotal = fields.Float(string="Costo Real Subtotal",compute='_compute_real_margin', store=True)
+    real_cost_subtotal = fields.Float(string="Costo Real Subtotal", compute='_compute_real_margin', store=True)
     real_margin = fields.Monetary(string="Margen Real", compute='_compute_real_margin', store=True)
     real_margin_percent = fields.Float(string="Margen Real (%)", compute='_compute_real_margin', store=True)
 
-    @api.depends('real_cost', 'product_uom_qty','price_subtotal')
+    @api.depends('real_cost', 'product_uom_qty', 'price_subtotal')
     def _compute_real_margin(self):
         for line in self:
             line.real_cost_subtotal = line.real_cost * line.product_uom_qty
             line.real_margin = line.price_subtotal - line.real_cost_subtotal
-            line.real_margin_percent = line.price_subtotal and (line.real_margin / line.price_subtotal)*100
+            line.real_margin_percent = line.price_subtotal and (line.real_margin / line.price_subtotal) * 100
