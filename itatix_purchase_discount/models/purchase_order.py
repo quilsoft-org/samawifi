@@ -1,5 +1,6 @@
 from odoo import api, fields, models
-
+import logging
+_logger = logging.getLogger(__name__)
 
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
@@ -69,6 +70,7 @@ class PurchaseOrderLine(models.Model):
 
     @api.depends("discount")
     def _compute_amount(self):
+        _logger.debug("Aqui esta entrando para el descuento")
         return super()._compute_amount()
 
     def _prepare_compute_all_values(self):
