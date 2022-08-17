@@ -71,7 +71,7 @@ class PurchaseOrderLine(models.Model):
     @api.depends("discount")
     def _compute_amount(self):
         _logger.error("---------------------------------Aqui esta entrando para el descuento")
-        return super(PurchaseOrderLine)._compute_amount()
+        return super()._compute_amount()
 
     def _prepare_compute_all_values(self):
         vals = super()._prepare_compute_all_values()
