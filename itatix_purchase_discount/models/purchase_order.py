@@ -80,6 +80,7 @@ class PurchaseOrderLine(models.Model):
             {
                 "price_unit": self._get_discounted_price_unit()
             })
+        self.price_unit = self._get_discounted_price_unit()
         _logger.error("---------------------------------Se asigno el precio unitario  "+ str(self._get_discounted_price_unit()))
         return vals
 
@@ -105,13 +106,26 @@ class PurchaseOrderLine(models.Model):
             return self.price_list * (1 - self.discount / 100)
         return self.price_list
 
+    """
+    def _get_stock_move_price_unit(self):
+        price_unit = False
+        price = self._get_discounted_price_unit()
+        if price != self.price_unit:
+            price_unit = self.price_unit
+            self.price_unit = price
+        price = super()._get_stock_move_price_unit()
+        if price_unit:
+            self.price_unit = price_unit
+        return price
+    """
+
     def _get_stock_move_price_unit(self):
         price_unit = False
         price = self._get_discounted_price_unit()  # get price_list
         if price != self.price_unit:
             price_unit = self.price_unit
-            _logger.error("---------------------------------Se asigno el precio unitario XXXXXX  "+ str(price))
-            self.price_unit = price
+            #_logger.error("---------------------------------Se asigno el precio unitario XXXXXX  "+ str(price))
+            #self.price_unit = price
         price = super()._get_stock_move_price_unit()
         # if price_unit:
         #    self.price_unit = price_unit
