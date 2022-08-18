@@ -80,7 +80,7 @@ class PurchaseOrderLine(models.Model):
             {
                 "price_unit": self._get_discounted_price_unit()
             })
-          _logger.error("---------------------------------Se asigno el precio unitario  "+ str(self._get_discounted_price_unit()))
+        _logger.error("---------------------------------Se asigno el precio unitario  "+ str(self._get_discounted_price_unit()))
         return vals
 
     discount = fields.Float(string="Discount (%)", digits="Discount")
