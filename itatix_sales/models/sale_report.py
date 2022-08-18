@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from odoo import fields, models
 
 
@@ -7,7 +5,7 @@ class SaleReport(models.Model):
     _inherit = 'sale.report'
 
     real_margin = fields.Float(string="Margen Real", readonly=True)
-    real_margin_percent = fields.Float(string="Margen Real (%)", readonly=True)
+    real_margin_percent = fields.Float(string="Margen Real (%)", readonly=True, group_operator="avg")
 
     def _query(self, with_clause='', fields={}, groupby='', from_clause=''):
         fields[
@@ -26,7 +24,7 @@ class SaleReportSama(models.Model):
     _inherit = 'sale.report.sama'
 
     real_margin = fields.Float(string="Margen Real", readonly=True)
-    real_margin_percent = fields.Float(string="Margen Real (%)", readonly=True)
+    real_margin_percent = fields.Float(string="Margen Real (%)", readonly=True, group_operator="avg")
 
     def _query(self, with_clause='', fields={}, groupby='', from_clause=''):
         fields['real_margin'] = ", sum(l.real_margin) as real_margin"
@@ -35,5 +33,3 @@ class SaleReportSama(models.Model):
                 ,l.real_margin_percent %s
             """ % (groupby)
         return super(SaleReportSama, self)._query(with_clause, fields, groupby_, from_clause)
-
-
