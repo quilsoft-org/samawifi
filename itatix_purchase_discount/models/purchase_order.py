@@ -94,9 +94,10 @@ class PurchaseOrderLine(models.Model):
         )
     ]
 
-    @api.onchange('price_list')
-    def onchange_price_list(self):
-        self.price_unit = self._get_discounted_price_unit()
+    #ivan_porras
+    #@api.onchange('price_list')
+    #def onchange_price_list(self):
+    #    self.price_unit = self._get_discounted_price_unit()
 
     def _get_discounted_price_unit(self):
         self.ensure_one()
