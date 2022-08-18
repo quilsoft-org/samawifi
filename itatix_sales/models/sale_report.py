@@ -5,7 +5,7 @@ class SaleReport(models.Model):
     _inherit = 'sale.report'
 
     real_margin = fields.Float(string="Margen Real", readonly=True)
-    real_margin_percent = fields.Float(string="Margen Real (%)", readonly=True, group_operator="avg")
+    real_margin_percent = fields.Float(string="Margen Real (%)", readonly=True)
 
     def _query(self, with_clause='', fields={}, groupby='', from_clause=''):
         fields[
@@ -24,7 +24,7 @@ class SaleReportSama(models.Model):
     _inherit = 'sale.report.sama'
 
     real_margin = fields.Float(string="Margen Real", readonly=True)
-    real_margin_percent = fields.Float(string="Margen Real (%)", readonly=True, group_operator="avg")
+    real_margin_percent = fields.Float(string="Margen Real (%)", readonly=True)
 
     def _query(self, with_clause='', fields={}, groupby='', from_clause=''):
         fields['real_margin'] = ", sum(l.real_margin) as real_margin"

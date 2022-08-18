@@ -53,6 +53,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='price_total']" position="after">
                 <field name="real_margin" type="measure"/>
+                 <field name="real_margin_percent" type="measure"/>
             </xpath>
         </field>
     </record>
@@ -63,6 +64,18 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='price_subtotal']" position="after">
                 <field name="real_margin" type="measure"/>
+                <field name="real_margin_percent" type="measure"/>
+            </xpath>
+        </field>
+    </record>
+     <record id="sale_order_pivot_view_inherit" model="ir.ui.view">
+        <field name="name">sale.order.pivot.view.inh</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sale_order_pivot"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="real_margin" type="measure"/>
+                <field name="real_margin_percent" type="measure" widget="percentage"/>
             </xpath>
         </field>
     </record>
