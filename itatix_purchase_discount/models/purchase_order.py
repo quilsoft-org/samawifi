@@ -74,11 +74,13 @@ class PurchaseOrderLine(models.Model):
         return super()._compute_amount()
 
     def _prepare_compute_all_values(self):
+        _logger.error("---------------------------------Ingreso con el descuento "+ str(self.discount))
         vals = super()._prepare_compute_all_values()
         vals.update(
             {
                 "price_unit": self._get_discounted_price_unit()
             })
+          _logger.error("---------------------------------Se asigno el precio unitario  "+ str(self._get_discounted_price_unit()))
         return vals
 
     discount = fields.Float(string="Discount (%)", digits="Discount")
