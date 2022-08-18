@@ -109,7 +109,7 @@ class PurchaseOrderLine(models.Model):
         price = self._get_discounted_price_unit()  # get price_list
         if price != self.price_unit:
             price_unit = self.price_unit
-             _logger.error("---------------------------------Se asigno el precio unitario XXXXXX  "+ str(price))
+            _logger.error("---------------------------------Se asigno el precio unitario XXXXXX  "+ str(price))
             self.price_unit = price
         price = super()._get_stock_move_price_unit()
         # if price_unit:
