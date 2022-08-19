@@ -3,7 +3,6 @@
 from odoo import models, fields, api
 
 
-
 class AccountInvoiceReport(models.Model):
     _inherit = "account.invoice.report"
 
@@ -11,21 +10,20 @@ class AccountInvoiceReport(models.Model):
     real_margin_percent = fields.Float(string="Margen Real (%)", readonly=True)
     real_cost = fields.Float(string="Costo Real", readonly=True)
 
-    def _query(self, with_clause='', fields={}, groupby='', from_clause=''):
-        fields[
-            'real_margin'] = ", SUM(line.real_margin / CASE COALESCE(move.currency_rate, 0) WHEN 0 THEN 1.0 ELSE move.currency_rate END) AS real_margin"
-        fields['real_margin_percent'] = ", SUM(line.real_margin_percent) AS real_margin_percent"
-        fields[
-            'real_cost'] = ", SUM((line.real_cost * line.product_uom_qty) / CASE COALESCE(move.currency_rate, 0) WHEN 0 THEN 1.0 ELSE move.currency_rate END) AS real_cost"
+    _depends = {
+        'account.move.line': [
+            'real_cost', 'real_margin', 'real_margin_percent', 'real_cost',
+        ],
+    }
 
-
-
-        return super(AccountInvoiceReport, self)._query(with_clause, fields, groupby, from_clause)
+    def _select(self):
+        return super()._select() + ", (line.real_margin / CASE COALESCE(currency_table.rate , 0) WHEN 0 THEN 1.0 ELSE currency_table.rate END) AS real_margin, (line.real_margin_percent) AS real_margin_percent,((line.real_cost * line.quantity) / CASE COALESCE(currency_table.rate, 0) WHEN 0 THEN 1.0 ELSE currency_table.rate END) AS real_cost"
 
     @api.model
     def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
-        res = super(AccountInvoiceReport, self).read_group(domain, fields, groupby, offset=offset, limit=limit, orderby=orderby,
-                                                 lazy=lazy)
+        res = super(AccountInvoiceReport, self).read_group(domain, fields, groupby, offset=offset, limit=limit,
+                                                           orderby=orderby,
+                                                           lazy=lazy)
         groupby = [groupby] if isinstance(groupby, str) else groupby
 
         for record in res:
