@@ -8,7 +8,7 @@ Functional
 ----------
 This module add brand and sub-category on invoice report
 """,
-    'author': 'Antonio Silva',
+    'author': 'Ivan Porras',
     'category': 'Accounting',
     'depends': [
         'account',
@@ -16,6 +16,7 @@ This module add brand and sub-category on invoice report
     ],
     'data': [
         'views/account_move.xml',
+        'report/account_invoice_report.xml',
     ],
     'demo': [
     ],
