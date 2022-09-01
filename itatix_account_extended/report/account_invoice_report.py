@@ -28,14 +28,14 @@ class AccountInvoiceReport(models.Model):
 
         for record in res:
             if "real_margin" in record:
-                if record['real_margin']:
+                if record['price_subtotal']:
                     record['real_margin_percent'] = record['real_margin'] * 100 / record['price_subtotal']
                 else:
                     record['real_margin_percent'] = record['real_margin'] or 1.0 / 1.0
         if not groupby:
             for record in res:
                 if "real_margin" in record:
-                    if record['real_margin']:
+                    if record['price_subtotal']:
                         record['real_margin_percent'] = record['real_margin'] * 100 / record['price_subtotal']
                     else:
                         record['real_margin_percent'] = record['real_margin'] or 1.0 / 1.0
