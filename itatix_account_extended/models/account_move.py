@@ -8,8 +8,20 @@ class AccountMove(models.Model):
 
     # ivanporras
     total_real_cost = fields.Monetary(string="Costo Real", compute='_compute_real_margin', store=True)
-    real_margin = fields.Monetary(string="Margen Real", compute='_compute_real_margin', store=True)
+    real_margin = fields.Monetary(string="Margen Real", compute='_compute_real_margin')
     real_margin_percent = fields.Float(string="Margen Real (%)", compute='_compute_real_margin', store=True)
+    currency_rate_usd_mxn = fields.Float("Currency Rate(MXN)", compute='_compute_currency_rate_usd_mxn',
+                                         compute_sudo=True, readonly=True, store=True)
+
+    @api.depends('currency_id', 'date', 'company_id')
+    def _compute_currency_rate_usd_mxn(self):
+        currency_usd = self.env.ref('base.USD')
+        if not currency_usd:
+            self.currency_rate_usd_mxn = 0.0
+            return
+        for move in self:
+            move.currency_rate_usd_mxn = 1.0 if move.currency_id.id == move.company_id.currency_id.id else currency_usd.with_context(
+                date=move.date).rate
 
     @api.depends('invoice_line_ids.real_margin', 'invoice_line_ids.real_cost_subtotal', 'amount_untaxed')
     def _compute_real_margin(self):
@@ -35,7 +47,6 @@ class AccountMove(models.Model):
                 invoice.real_margin_percent = invoice.amount_untaxed and invoice.real_margin / invoice.amount_untaxed
 
     # end ivanporras
-
 
 
 class AccountMoveLine(models.Model):
