@@ -1,0 +1,20 @@
+<odoo>
+  <data>
+      <!-- search view -->
+
+    <record id="stock_valuation_layer_tree_view_inh" model="ir.ui.view">
+      <field name="name">stock valuation layer tree view inh</field>
+      <field name="model">stock.valuation.layer</field>
+      <field name="inherit_id" ref="stock_account.stock_valuation_layer_tree"/>
+      <field name="arch" type="xml">
+           <xpath expr="//tree//field[@name='value']" position="after">
+               <field name="mx_value" sum="Valor MXN"/>
+               <field name="usd_value" sum="Valor USD"/>
+               <field name="rate_value" avg="Tasa Promedio"/>
+           </xpath>
+      </field>
+    </record>
+      
+    </data>
+    
+</odoo>
