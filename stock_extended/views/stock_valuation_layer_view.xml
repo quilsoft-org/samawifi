@@ -7,7 +7,7 @@
       <field name="model">stock.valuation.layer</field>
       <field name="inherit_id" ref="stock_account.stock_valuation_layer_tree"/>
       <field name="arch" type="xml">
-           <xpath expr="//tree//field[@name='value']" position="after">
+           <xpath expr="//tree//field[@name='value']" position="replace">
                <field name="mx_value" sum="Valor MXN"/>
                <field name="usd_value" sum="Valor USD"/>
                <field name="rate_value" avg="Tasa Promedio"/>
