@@ -24,8 +24,10 @@ class AccountMove(models.Model):
     def _compute_product_id(self):
         for move in self:
             move.product_id = False
+            count = 0
             for line in move.invoice_line_ids.filtered(lambda l: l.product_id):
-                move.product_id =  line.product_id
+                if count == 0:
+                    move.product_id = line.product_id
 
 class SalesTargetLines(models.Model):
     _inherit = "sales.target.lines"
