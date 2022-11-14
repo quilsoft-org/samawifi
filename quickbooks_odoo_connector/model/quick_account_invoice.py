@@ -24,6 +24,10 @@ class account_invoice(models.Model):
     sync_date = fields.Datetime(string='Last synchronization date')
     doc_number = fields.Char(string='QBO Doc Number', help='Stores QBO document number for reference purpose')
 
+   
+    
+    
+
     @api.model
     def create(self, vals):
         return super(account_invoice, self).create(vals)

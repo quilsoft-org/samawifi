@@ -1,5 +1,6 @@
 from odoo import api, fields, models
-
+import logging
+_logger = logging.getLogger(__name__)
 
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
@@ -31,7 +32,8 @@ class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
 
     @api.model
-    def _prepare_purchase_order_line_from_procurement(self, product_id, product_qty, product_uom, company_id, values, po):
+    def _prepare_purchase_order_line_from_procurement(self, product_id, product_qty, product_uom, company_id, values,
+                                                      po):
         result = super(PurchaseOrderLine, self)._prepare_purchase_order_line_from_procurement(
             product_id, product_qty, product_uom, company_id, values, po
         )
@@ -63,20 +65,23 @@ class PurchaseOrderLine(models.Model):
         dict_values = {
             "discount": seller.discount,
             "price_list": seller.price_list
-         }
+        }
         return dict_values
 
     @api.depends("discount")
     def _compute_amount(self):
+        _logger.error("---------------------------------Aqui esta entrando para el descuento")
         return super()._compute_amount()
 
     def _prepare_compute_all_values(self):
+        _logger.error("---------------------------------Ingreso con el descuento "+ str(self.discount))
         vals = super()._prepare_compute_all_values()
         vals.update(
             {
                 "price_unit": self._get_discounted_price_unit()
             })
         self.price_unit = self._get_discounted_price_unit()
+        _logger.error("---------------------------------Se asigno el precio unitario  "+ str(self._get_discounted_price_unit()))
         return vals
 
     discount = fields.Float(string="Discount (%)", digits="Discount")
@@ -90,12 +95,18 @@ class PurchaseOrderLine(models.Model):
         )
     ]
 
+    #ivan_porras
+    #@api.onchange('price_list')
+    #def onchange_price_list(self):
+    #    self.price_unit = self._get_discounted_price_unit()
+
     def _get_discounted_price_unit(self):
         self.ensure_one()
         if self.discount:
             return self.price_list * (1 - self.discount / 100)
         return self.price_list
 
+    """
     def _get_stock_move_price_unit(self):
         price_unit = False
         price = self._get_discounted_price_unit()
@@ -105,6 +116,19 @@ class PurchaseOrderLine(models.Model):
         price = super()._get_stock_move_price_unit()
         if price_unit:
             self.price_unit = price_unit
+        return price
+    """
+
+    def _get_stock_move_price_unit(self):
+        price_unit = False
+        price = self._get_discounted_price_unit()  # get price_list
+        if price != self.price_unit:
+            price_unit = self.price_unit
+            #_logger.error("---------------------------------Se asigno el precio unitario XXXXXX  "+ str(price))
+            #self.price_unit = price
+        price = super()._get_stock_move_price_unit()
+        # if price_unit:
+        #    self.price_unit = price_unit
         return price
 
     @api.onchange("product_qty", "product_uom")
@@ -135,7 +159,7 @@ class PurchaseOrderLine(models.Model):
         res = super(PurchaseOrderLine, self)._prepare_account_move_line(move)
         res.update(
             {
-                'discount':self.discount,
+                'discount': self.discount,
                 'price_unit': self.price_list
             }
         )

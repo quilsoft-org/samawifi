@@ -46,11 +46,25 @@ class QboInvoiceExport(QuickExportAdapter):
         return api_method
 
     def export_invoice(self, method, arguments):
+
         """ Export Invoice data"""
+
+        
         _logger.debug("Start calling QBO api %s", method)
 
         temp_array = []
         taxcodeqb_id = None
+        lst = []
+        sum = 0
+        total_amt = 0
+        
+        for i in arguments[1].invoice_line_ids:
+
+            discount_value =(i.quantity *i.price_unit) * i.discount/100
+            lst.append(discount_value)
+            sum = sum + discount_value
+            final = i.quantity *i.price_unit
+            total_amt = total_amt + final
         if arguments[1].invoice_line_ids:
             for order_line in arguments[1].invoice_line_ids:
                 product_template_id = arguments[1].env['product.template'].search(
@@ -61,9 +75,10 @@ class QboInvoiceExport(QuickExportAdapter):
                 else:
                     taxcoderef = "NON"
 
+                amount = order_line.quantity * order_line.price_unit
                 temp = {
                     "Description": order_line.name or None,
-                    "Amount": order_line.price_subtotal,
+                    "Amount": amount,
                     "DetailType": "SalesItemLineDetail",
                     "SalesItemLineDetail": {
                         "ItemRef": {
@@ -76,13 +91,25 @@ class QboInvoiceExport(QuickExportAdapter):
                         }
                     },
                     "Id": order_line.quickbook_id or None,
+
                 }
+                true = True
+                false = False
+                a = arguments[1].env['account.account'].search([('name', '=', 'Discounts given')]).quickbook_id
+                dics = {"DetailType": "DiscountLineDetail", "Amount": sum,"DiscountLineDetail": {"DiscountAccountRef": {"name": 'Discounts given',"value": a},"PercentBased": false}}
+
                 if not arguments[1].env.company.partner_id.country_id.code is 'US':
                     temp.get("SalesItemLineDetail").get('TaxCodeRef').update({'value': taxcodeqb_id })
                 temp_array.append(temp)
+                temp_array.append(dics)
+
+                if arguments[1].doc_number:
+                    docnumber = arguments[1].doc_number
+                else:
+                    docnumber = arguments[1].name
         result_dict = {
             "TxnDate": arguments[1].invoice_date,
-            "DocNumber": arguments[1].doc_number,
+            "DocNumber": docnumber,
             "Line": temp_array,
             "TxnTaxDetail": {
                 "TxnTaxCodeRef": {
@@ -129,6 +156,8 @@ class QboInvoiceExport(QuickExportAdapter):
 
         temp_array = []
         taxcodeqb_id = None
+        if arguments[1]:
+            doc = arguments[1].ref
         if arguments[1].invoice_line_ids:
             for order_line in arguments[1].invoice_line_ids:
                 product_template_id = arguments[1].env['product.template'].search([('name', '=', order_line.product_id.name)])
@@ -137,7 +166,11 @@ class QboInvoiceExport(QuickExportAdapter):
                     taxcodeqb_id = order_line.tax_ids.quickbook_id
                 else:
                     taxcoderef = "NON"
-
+                discount = order_line.discount
+                if discount:
+                    unit_price = order_line.price_subtotal / order_line.quantity
+                else:
+                    unit_price = order_line.price_unit
                 temp = {
 
                     "Description" : order_line.name or None,
@@ -147,7 +180,7 @@ class QboInvoiceExport(QuickExportAdapter):
                         "ItemRef" : {
                             "value" : product_template_id.quickbook_id or None
                         },
-                    "UnitPrice" : order_line.price_unit,
+                    "UnitPrice" : unit_price,
                     "Qty" : order_line.quantity,
                     "TaxCodeRef" : {
                         "value" : taxcoderef
@@ -158,9 +191,14 @@ class QboInvoiceExport(QuickExportAdapter):
                 if not arguments[1].env.company.partner_id.country_id.code is 'US':
                     temp.get("ItemBasedExpenseLineDetail").get('TaxCodeRef').update({'value': taxcodeqb_id })
                 temp_array.append(temp)
+
+                if arguments[1].doc_number:
+                    docn = arguments[1].doc_number
+                else:
+                    docn = arguments[1].ref
         result_dict = {
                     "TxnDate": arguments[1].invoice_date,
-                    "DocNumber": arguments[1].doc_number,
+                    "DocNumber": docn,
                     "Line": temp_array,
                     "TxnTaxDetail": {
                         "TxnTaxCodeRef": {
