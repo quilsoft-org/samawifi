@@ -25,7 +25,10 @@ class StockValuationLayer(models.Model):
             if record.company_id.currency_id.id == 33:
                 #raise UserError(company.id)
                 record.mx_value = record.value
-                record.usd_value = record.value / record.rate_value
+                if record.rate_value > 0:
+                    record.usd_value = record.value / record.rate_value
+                else:
+                    record.usd_value = record.value
                 
             if record.company_id.currency_id.id == 2:
                 #raise UserError(company.id)
