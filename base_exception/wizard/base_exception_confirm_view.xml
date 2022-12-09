@@ -17,7 +17,7 @@
                 <group>
                     <field
                         name="ignore"
-                        groups='base_exception.group_exception_rule_manager'
+                       groups="base_exception.group_exception_rule_manager"
                     />
                 </group>
                 <footer>
