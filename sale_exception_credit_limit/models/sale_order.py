@@ -4,6 +4,10 @@
 ##############################################################################
 from odoo import models, fields
 from odoo.tools.float_utils import float_is_zero
+from datetime import date
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class SaleOrder(models.Model):
@@ -67,9 +71,15 @@ class SaleOrder(models.Model):
                         taxes['total_included'], line.company_id.currency_id, line.company_id, fields.Date.today())
                 draft_invoice_lines_amount += total
 
-            available_credit = self.partner_id.commercial_partner_id.credit_limit - \
-                self.partner_id.commercial_partner_id.credit - \
-                to_invoice_amount - draft_invoice_lines_amount
+            cred_limit = self.partner_id.commercial_partner_id.credit_limit
+            if self.partner_id.property_product_pricelist.currency_id != self.company_id.currency_id:
+                cred_limit = self.currency_id._convert(
+                    self.partner_id.commercial_partner_id.credit_limit, self.company_id.currency_id, self.company_id,
+                    fields.Date.today())
+
+            available_credit = cred_limit - \
+                               self.partner_id.commercial_partner_id.credit - \
+                               to_invoice_amount - draft_invoice_lines_amount
             amount_total = self.amount_total
             if self.currency_id != self.company_id.currency_id:
                 amount_total = self.currency_id._convert(
@@ -77,3 +87,16 @@ class SaleOrder(models.Model):
             if amount_total > available_credit:
                 return False
         return True
+
+    def check_over_due_invoices_ok(self):
+        self.ensure_one()
+        self = self.sudo()
+        today = date.today()
+        filters = [('invoice_date_due', '<', today), ('payment_state', '!=', 'paid'),
+                   ('partner_id', '=', self.partner_id.id)]
+        over_due_invoices = self.env['account.move'].search(filters)
+        if over_due_invoices:
+            return False
+
+        return True
+

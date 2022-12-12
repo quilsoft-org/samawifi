@@ -40,7 +40,7 @@
                         </group>
                     </group>
                     <group>
-                        <group colspan="4" groups="base.group_system">
+                        <group colspan="4" groups="base_exception.group_exception_rule_manager">
                             <field name="model" />
                             <field name="exception_type" widget="radio" />
                             <field
