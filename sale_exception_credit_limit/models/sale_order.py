@@ -95,6 +95,8 @@ class SaleOrder(models.Model):
         filters = [('invoice_date_due', '<', today), ('payment_state', '!=', 'paid'),
                    ('partner_id', '=', self.partner_id.id)]
         over_due_invoices = self.env['account.move'].search(filters)
+        if self.partner_id.commercial_partner_id.credit_limit == 0:
+            return True
         if over_due_invoices:
             return False
 
