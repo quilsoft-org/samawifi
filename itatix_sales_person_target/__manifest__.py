@@ -5,7 +5,7 @@
     'summary': 'Sales Person Target for sales',
     'author': "ITATIX SA DE CV",
     "version": '14.0.0.0',
-    'depends': ['sale', 'sales_team', 'sale_management', 'stock'],
+    'depends': ['sale', 'sales_team', 'sale_management', 'stock','itatix_region'],
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',

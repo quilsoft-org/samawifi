@@ -42,6 +42,7 @@ class InvoiceReportSama(models.Model):
     company_id = fields.Many2one('res.company', string='Company', readonly=True)
     user_id = fields.Many2one('res.users', string='Salesperson', readonly=True)
     team_id = fields.Many2one('crm.team', string='Sales Team')
+    region_id = fields.Many2one('partner.region',string="Region")
     move_type = fields.Selection([
         ('out_invoice', 'Customer Invoice'),
         ('out_refund', 'Customer Credit Note'),
@@ -102,6 +103,7 @@ class InvoiceReportSama(models.Model):
                 move.move_type                                              AS move_type,
                 move.invoice_user_id                                        AS user_id,
                 move.team_id                                                AS team_id,
+                move.region_id                                              AS region_id,
                 move.invoice_date                                           AS date_order,
                 template.categ_id                                           AS product_categ_id,
                 template.sama_category_id                                   AS product_sama_category_id,
@@ -197,6 +199,33 @@ class InvoiceReportSama(models.Model):
                         team_id = line['team_id'][0]
                         team = self.env['crm.team'].browse(int(team_id))
                         line_domain = expression.AND([line_domain, [('user_id','in',team.member_ids.ids)]])
+                        target_lines = self.env['sales.target.lines'].search(line_domain)
+                        amount_target = sum(target_lines.mapped('monthly_target'))
+                        line['amount_target'] = amount_target
+
+                if 'gap' in line:
+                    line['gap'] = line.get('price_subtotal_usd', 0.0) - line.get('amount_target', 0.0)
+
+                if 'achieve_perct' in line:
+                    line['achieve_perct'] = line.get('price_subtotal_usd', 0.0) * 100.0 / (line.get('amount_target', 0.0) or 1.0)
+        elif 'region_id' in groupby:
+            for line in result:
+                if 'amount_target' in line:
+                    line['amount_target'] = 0.0
+                    line_domain = date_domain.copy()
+                    if 'date_order:month' in line:
+                        date = line['date_order:month'].split(' ')
+                        month = months[date[0].upper()]
+                        year = int(date[1])
+                        first, last = calendar.monthrange(year, month)
+                        date_begin = "%s-%.2d-01"%(date[1], month)
+                        date_end = "%s-%.2d-%.2d"%(date[1], month, last)
+                        line_domain = [('date_order', '>=', date_begin), ('date_order', '<=', date_end)]
+
+                    if 'region_id' in line and line['region_id']:
+                        region_id = line['region_id'][0]
+                        region = self.env['partner.region'].browse(int(region_id))
+                        line_domain = expression.AND([line_domain, [('region_id','in',region_id.id)]])
                         target_lines = self.env['sales.target.lines'].search(line_domain)
                         amount_target = sum(target_lines.mapped('monthly_target'))
                         line['amount_target'] = amount_target

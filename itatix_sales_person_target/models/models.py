@@ -122,6 +122,7 @@ class SalesTarget(models.Model):
                                        ('invoice_created', 'Invoice Created'),
                                        ('invoice_paid', 'Invoice Paid')], string="Target Achieve", default="invoice_created")
     sales_team_id = fields.Many2one('crm.team')
+    region_id = fields.Many2one(comodel_name="partner.region")
     sales_target_lines = fields.One2many("sales.target.lines", "target_id", string="Target Lines")
     current_year = fields.Date(copy=False)
     gap = fields.Float(copy=False, compute='_compute_monthly_target', store=True)
@@ -235,6 +236,7 @@ class SalesTarget(models.Model):
                     'target_id': self.id,
                     'date_order': endt,
                     'user_id': self.salesperson.id,
+                    'region_id': self.region_id.id,
                 })
 
     @api.onchange('sales_team_id')
@@ -494,6 +496,7 @@ class SalesTargetLines(models.Model):
     target_id = fields.Many2one("sales.target", string="Sales Target", copy=False, index=True, ondelete='cascade')
     date_order = fields.Date("Order Date", copy=False)
     user_id = fields.Many2one("res.users", string="Salesperson", copy=False)
+    region_id = fields.Many2one("partner.region", string="Region", copy=False)
     monthly_target = fields.Float("Monthly Target", copy=False)
     currency_id = fields.Many2one("res.currency", string="Currency", copy=False)
     monthly_target_achieve = fields.Float("Monthly Target Achieved", copy=False)

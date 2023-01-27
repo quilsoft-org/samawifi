@@ -7,6 +7,7 @@
 			<tree create="false" editable="bottom" delete="false">
 				<field name="date_order" readonly="1" force_save="1"/>
 				<field name="user_id" readonly="1" force_save="1"/>
+				<field name="region_id"/>
 				<field name="monthly_target" string="Quota" readonly="1" force_save="1"/>
 				<field name="currency_id" readonly="1" force_save="1"/>
 				<field name="monthly_target_achieve" readonly="1" force_save="1"/>
@@ -62,6 +63,7 @@
 					</div>
 					<group>
 						<group>
+							<field name="region_id" options="{'no_create': True}"/>
 							<field name="sales_team_id" options="{'no_create': True}"/>
 							<field name="team_leader" readonly="1" force_save="1"/>
 							<field name="salesperson" required="1" options="{'no_create': True}"/>
