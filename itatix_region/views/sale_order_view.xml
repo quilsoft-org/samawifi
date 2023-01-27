@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//sheet/group/group/field[@name='partner_id']" position="after">
-                <field name="region_id"/>
+                <field name="region_id" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit':True}" widget="selection"/>
             </xpath>
         </field>
     </record>
