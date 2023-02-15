@@ -13,6 +13,12 @@
             <field name="real_margin" optional="hide"/>
             <field name="real_margin_percent" optional="hide"/>
           </xpath>
+             <xpath expr="//notebook/page[2]/field[@name='line_ids']/tree/field[@name='price_unit']" position="after">
+            <field name="real_cost" optional="hide"/>
+            <field name="real_cost_subtotal" optional="hide"/>
+            <field name="real_margin" optional="hide"/>
+            <field name="real_margin_percent" optional="hide"/>
+          </xpath>
             <field name="amount_total" position="after">
                 <field name="total_real_cost"/>
                 <label for="real_margin" groups="base.group_user"/>
