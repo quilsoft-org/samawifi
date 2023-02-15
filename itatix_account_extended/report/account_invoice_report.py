@@ -17,7 +17,7 @@ class AccountInvoiceReport(models.Model):
     }
 
     def _select(self):
-        return super()._select() + ", (line.real_margin / move.currency_rate_usd_mxn) AS real_margin, (line.real_margin_percent) AS real_margin_percent,((line.real_cost * line.quantity) / move.currency_rate_usd_mxn) AS real_cost"
+        return super()._select() + ", (line.real_margin * currency_table.rate) AS real_margin, (line.real_margin_percent) AS real_margin_percent,((line.real_cost * line.quantity) * currency_table.rate) AS real_cost"
 
     @api.model
     def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
