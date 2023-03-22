@@ -13,6 +13,36 @@ logger = logging.getLogger(__name__)
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    #Metodo para validar limite de credito
+    def check_credit_limit_ok_new(self):
+        self.ensure_one()
+        self = self.sudo()
+        credit_limit = self.partner_id.commercial_partner_id.credit_limit
+        if not float_is_zero(credit_limit, precision_digits=self.currency_id.decimal_places):
+            domain = [
+                ('partner_id.commercial_partner_id', '=', self.partner_id.commercial_partner_id.id),
+                ('move_type', 'in', ['out_invoice', 'out_refund']),
+                ('state', '=', 'posted'),
+                ('invoice_date_due', '<', fields.Date.today()),
+                ('payment_state', 'in', ('no_paid', 'partial'))]
+            invoice_not_paid = self.env['account.move'].search(domain)
+            invoice_not_paid_amount  = 0.00
+            total_residual = 0.00
+            for inv in invoice_not_paid:
+                total_residual = inv.amount_residual
+                if inv.currency_id != inv.company_id.currency_id:
+                    total_residual = inv.currency_id._convert(inv.amount_residual, inv.company_id.currency_id, inv.company_id, fields.Date.today())
+                invoice_not_paid_amount += total_residual
+            if self.partner_id.property_product_pricelist.currency_id != self.company_id.currency_id:
+                credit_limit = self.currency_id._convert(self.partner_id.commercial_partner_id.credit_limit, self.company_id.currency_id, self.company_id, fields.Date.today())
+            available_credit = credit_limit - invoice_not_paid_amount
+            amount_total = self.amount_total
+            if self.currency_id != self.company_id.currency_id:
+                amount_total = self.currency_id._convert(self.amount_total, self.company_id.currency_id, self.company_id, fields.Date.today())
+            if amount_total > available_credit:
+                return False
+        return True
+
     def check_credit_limit_ok(self):
         self.ensure_one()
         self = self.sudo()
