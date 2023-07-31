@@ -1,8 +1,8 @@
 {
     "name": "Purchase order lines with discounts",
-    "author": "ITATIX SA DE CV, "
+    "author": "ITATIX SA DE CV, Quilsoft"
     "Odoo Community Association (OCA)",
-    "version": "14.0.0.0.2",
+    "version": "14.0.0.0.3",
     "category": "Purchase Management",
     "depends": ["purchase_stock", "sale", "crm", "sale_crm", "sale_purchase", "sale_purchase_stock", "web", "account"],
     "data": [
@@ -13,6 +13,7 @@
         "views/sale_order_view.xml",
         "views/crm_lead_views.xml",
         "views/account_move_view.xml",
+        "views/sale_order_portal_content.xml",
         "report/purchase_reports_document.xml",
     ],
     "license": "AGPL-3",
