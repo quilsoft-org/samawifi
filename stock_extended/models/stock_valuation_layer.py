@@ -7,7 +7,7 @@ class StockValuationLayer(models.Model):
     mx_value = fields.Float(string=_("Valor MXN"),compute="_compute_data")
     usd_value = fields.Float(string=_("Valor USD"),compute="_compute_data")
     rate_value = fields.Float(string=_("Tasa"),compute="_compute_rate")
-   
+    location_id = fields.Many2one(related='stock_move_id.location_dest_id', readonly=True, store=True)
         
     @api.depends()
     def _compute_rate(self):
