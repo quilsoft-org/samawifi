@@ -10,6 +10,7 @@ class AccountInvoiceReport(models.Model):
     product_sama_subcategory_id = fields.Many2one('sama.subcategory', copy=False)
     product_sama_brand_id = fields.Many2one('sama.brand', copy=False)
     price_subtotal_usd = fields.Float(string='Untaxed Total(USD)', readonly=True)
+    partner_region_id = fields.Many2one('partner.region', readonly=True)
 
     def _select(self):
         select_str = super(AccountInvoiceReport, self)._select()
@@ -21,5 +22,6 @@ class AccountInvoiceReport(models.Model):
             template.sama_subcategory_id                                           AS product_sama_subcategory_id,
             template.sama_brand_id                                           AS product_sama_brand_id,
             CASE WHEN move.amount_untaxed_signed < 0 THEN -line.price_subtotal * move.currency_rate_usd ELSE line.price_subtotal * move.currency_rate_usd END  AS price_subtotal_usd,
+            partner.region_id                                       AS partner_region_id,
             """
         )
