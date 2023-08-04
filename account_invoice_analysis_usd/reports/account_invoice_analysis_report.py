@@ -63,6 +63,7 @@ class AccountInvoiceAnalysisReport(models.Model):
     product_sama_subcategory_id = fields.Many2one('sama.subcategory', copy=False)
     product_sama_brand_id = fields.Many2one('sama.brand', copy=False)
     price_subtotal_usd = fields.Float(string='Untaxed Total(USD)', readonly=True)
+    partner_region_id = fields.Many2one('partner.region', readonly=True)
 
     _depends = {
         'account.move': [
@@ -128,7 +129,8 @@ class AccountInvoiceAnalysisReport(models.Model):
                 COALESCE(partner.country_id, commercial_partner.country_id) AS country_id,
                 (line.real_margin) AS real_margin, 
                 (line.real_margin_percent) AS real_margin_percent,
-                ((line.real_cost * line.quantity)) AS real_cost
+                ((line.real_cost * line.quantity)) AS real_cost,
+                partner.region_id                                       AS partner_region_id
         '''
 
     @api.model
