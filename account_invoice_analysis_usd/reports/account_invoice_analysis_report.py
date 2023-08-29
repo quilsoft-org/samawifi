@@ -63,6 +63,7 @@ class AccountInvoiceAnalysisReport(models.Model):
     product_sama_subcategory_id = fields.Many2one('sama.subcategory', copy=False)
     product_sama_brand_id = fields.Many2one('sama.brand', copy=False)
     price_subtotal_usd = fields.Float(string='Untaxed Total(USD)', readonly=True)
+    region_id = fields.Many2one('partner.region', readonly=True)
 
     _depends = {
         'account.move': [
@@ -110,6 +111,7 @@ class AccountInvoiceAnalysisReport(models.Model):
                 move.payment_state,
                 move.invoice_date,
                 move.invoice_date_due,
+                move.region_id,
                 uom_template.id                                             AS product_uom_id,
                 template.categ_id                                           AS product_categ_id,
                 template.sama_category_id                                   AS product_sama_category_id,
