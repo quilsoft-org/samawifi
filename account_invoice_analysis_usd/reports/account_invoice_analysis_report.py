@@ -128,10 +128,12 @@ class AccountInvoiceAnalysisReport(models.Model):
                    * (NULLIF(COALESCE(uom_line.factor, 1), 0.0) / NULLIF(COALESCE(uom_template.factor, 1), 0.0)),
                    0.0) * currency_table.rate                               AS price_average,
                 COALESCE(partner.country_id, commercial_partner.country_id) AS country_id,
-                (line.real_margin) AS real_margin, 
-                (line.real_margin_percent) AS real_margin_percent,
-                ((line.real_cost * line.quantity)) AS real_cost
+                (CASE WHEN line.company_currency_id <> 2 THEN line.real_margin * move.currency_rate_usd ELSE line.real_margin END) AS real_margin, 
+                (CASE WHEN line.company_currency_id <> 2 THEN line.real_margin_percent * move.currency_rate_usd ELSE line.real_margin_percent END) AS real_margin_percent,
+                (line.real_cost * line.quantity) AS real_cost
         '''
+
+    # ((CASE WHEN line.company_currency_id <> 2 THEN line.real_cost * move.currency_rate_usd ELSE line.real_cost END) * line.quantity) AS real_cost
 
     @api.model
     def _from(self):
@@ -169,15 +171,19 @@ class AccountInvoiceAnalysisReport(models.Model):
         for record in res:
 
             if "real_margin" in record:
-                if record['price_subtotal']:
-                    record['real_margin_percent'] = (record['real_margin'] / record['price_subtotal']) * 100
+                # if record['price_subtotal']:
+                if record.get('price_subtotal_usd', False):
+                    # record['real_margin_percent'] = (record['real_margin'] / record['price_subtotal']) * 100
+                    record['real_margin_percent'] = (record['real_margin'] / record['price_subtotal_usd']) * 100
                 else:
                     record['real_margin_percent'] = record['real_margin'] or 1.0 / 1.0
         if not groupby:
             for record in res:
                 if "real_margin" in record:
-                    if record['price_subtotal']:
-                        record['real_margin_percent'] = (record['real_margin'] / record['price_subtotal']) * 100
+                    # if record['price_subtotal']:
+                    if record.get('price_subtotal_usd', False):
+                        # record['real_margin_percent'] = (record['real_margin'] / record['price_subtotal']) * 100
+                        record['real_margin_percent'] = (record['real_margin'] / record['price_subtotal_usd']) * 100
                     else:
                         record['real_margin_percent'] = record['real_margin'] or 1.0 / 1.0
         return res
