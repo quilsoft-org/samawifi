@@ -13,6 +13,7 @@ class HrEmployee(models.Model):
         for employee in self.search([('birthday', '!=', False)]):
             if employee.birthday.day == day and employee.birthday.month == month:
                 self.env.ref('wt_birthday_reminder.mail_template_birthday_wishes_reminder').send_mail(employee.id, force_send=True)
-                all_email = self.search([('id', '!=', employee.id)]).mapped('work_email')
+                temp_all_email = self.search([('id', '!=', employee.id)]).mapped('work_email')
+                all_email = [item for item in temp_all_email if item]
                 email_values = {'email_to': ','.join(all_email)}
                 self.env.ref('wt_birthday_reminder.mail_template_birthday_wishes_reminder_for_company').send_mail(employee.id, email_values=email_values, force_send=True)
