@@ -7,7 +7,7 @@
 
 {
     'name': 'crm extended',
-    'version': '14.0.1.0.0',
+    'version': "16.0.1.0.0",
     'category': 'CRM',
     'summary': "Extend fields of lead crm",
     'author': "Quilsoft",

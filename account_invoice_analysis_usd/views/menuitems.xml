@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <menuitem 
-        id="menu_action_account_analysis_invoice_report_usd" 
-        name="Invoice Analysis USD"
-        parent="account.account_reports_management_menu"
-        action="action_account_invoice_analysis_report_all" 
-        sequence="3"/>
-</odoo>
