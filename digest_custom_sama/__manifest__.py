@@ -6,6 +6,7 @@
 Adding and correction funtionalities in digest emails.  
 """,
     'author': 'Quilsoft',
+    'license': 'AGPL-3',
     'category': 'Digest',
     'depends': ['digest',],
     'installable': True,
