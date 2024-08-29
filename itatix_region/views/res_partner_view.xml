@@ -1,0 +1,11 @@
+<odoo>
+    <record model="ir.ui.view" id="res_partner_form_view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group/group[2]/field[@name='function']" position="before">
+               <field name="region_id" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit':True}" widget="selection"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

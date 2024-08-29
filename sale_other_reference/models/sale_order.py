@@ -6,7 +6,7 @@ from odoo import models, fields
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    purchase_order_reference = fields.Char('Purchase Order')
+    purchase_order_reference = fields.Char('Purchase Order Reference')
 
     def _prepare_invoice(self):
         res = super(SaleOrder, self)._prepare_invoice()
