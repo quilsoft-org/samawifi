@@ -26,16 +26,16 @@ class SalesTargetReport(models.Model):
         groupby = [groupby] if isinstance(groupby, str) else groupby
         if any("date" in s for s in groupby):
             for record in res:
-                if record['target']:
-                    record['achieve_perct'] = record['achieve_total'] * 100 / record['target']
+                if record.get('target'):
+                    record['achieve_perct'] = (record.get('achieve_total', 0) or 0) * 100 / record.get('target')
                 else:
-                    record['achieve_perct'] = record['achieve_total'] or 1.0 / 1.0
+                    record['achieve_perct'] = record.get('achieve_total') or 1.0 / 1.0
         if not groupby:
             for record in res:
-                if record['target']:
-                    record['achieve_perct'] = record['achieve_total'] * 100 / record['target']
+                if record.get('target'):
+                    record['achieve_perct'] = (record.get('achieve_total', 0) or 0) * 100 / record.get('target')
                 else:
-                    record['achieve_perct'] = record['achieve_total'] or 1.0 / 1.0
+                    record['achieve_perct'] = record.get('achieve_total') or 1.0 / 1.0
         return res
 
     @api.model
@@ -87,7 +87,5 @@ class SalesTargetReport(models.Model):
         return '%s (SELECT %s FROM %s WHERE stl.user_id IS NOT NULL GROUP BY %s)' % (with_, select_, from_, groupby_)
 
     def init(self):
-        # self._table = sale_report
         tools.drop_view_if_exists(self.env.cr, self._table)
         self.env.cr.execute("""CREATE or REPLACE VIEW %s as (%s)""" % (self._table, self._query()))
-

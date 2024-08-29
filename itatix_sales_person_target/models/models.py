@@ -1,9 +1,8 @@
 
-from odoo import api, fields, models, SUPERUSER_ID, _, http
+from odoo import api, fields, models, _
 from odoo.fields import Datetime
 from datetime import datetime
 from calendar import monthrange
-from odoo.exceptions import UserError
 
 
 class ResUsers(models.Model):
@@ -89,7 +88,6 @@ class CrmTeam(models.Model):
             'target': 'current',
         }
 
-
     @api.onchange('member_ids')
     def onchange_member_ids(self):
         UserObj = self.env['res.users'].sudo().search([('id','=',self.user_id.id)])
@@ -127,6 +125,7 @@ class SalesTarget(models.Model):
     gap = fields.Float(copy=False, compute='_compute_monthly_target', store=True)
     total_target = fields.Float(copy=False, string="Teams Quota", compute='_compute_quota_sales_team', store=True)
     company_id = fields.Many2one('res.company', 'Company', required=True, index=True, default=lambda self: self.env.company)
+    dynamic_salesperson_domain = fields.Many2many(comodel_name='res.users', compute='_compute_dynamic_salesperson_domain')
 
     @api.depends('sales_team_id', 'sales_target_lines.monthly_target')
     def _compute_quota_sales_team(self):
@@ -163,15 +162,22 @@ class SalesTarget(models.Model):
                     'gap': current_month.monthly_target_achieve - current_month.monthly_target
                 })
 
-    @api.model
-    def create(self, vals):
-        res = super(SalesTarget, self).create(vals)
-        if res:
-            res.create_months(fields.Date.today())
-            if res.mapped("sales_target_lines"):
-                for line in res.mapped("sales_target_lines"):
-                    line.current_year = True
-            res.current_year = fields.Date.today()
+    def _compute_dynamic_create_edit(self):
+        group_team_leader = self.env.ref('itatix_sales_person_target.group_team_leader')
+        if group_team_leader and group_team_leader in self.env.user.groups_id:
+            self.dynamic_create_edit = True
+            return
+
+        self.dynamic_create_edit = False
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        res = super().create(vals_list)
+        for rec in res:
+            rec.create_months(fields.Date.today())
+            for line in rec.mapped("sales_target_lines"):
+                line.current_year = True
+            rec.current_year = fields.Date.today()
         return res
 
     @api.onchange('current_year')
@@ -237,21 +243,12 @@ class SalesTarget(models.Model):
                     'user_id': self.salesperson.id,
                     'region_id': self.region_id.id,
                 })
+    
+    @api.depends('sales_team_id')
+    def _compute_dynamic_salesperson_domain(self):
+        for rec in self:
+            rec.dynamic_salesperson_domain = rec.sales_team_id.member_ids.ids
 
-    @api.onchange('sales_team_id')
-    def _onchange_default_team_leader(self):
-        if self.sales_team_id:
-            self.team_leader = self.sales_team_id.user_id
-            
-    @api.onchange('team_leader')
-    def onchange_team_leader(self):
-        TeamMembers = []
-        for team in self.env['crm.team'].sudo().search([('user_id', '=', self.team_leader.id)]):
-            for t in team.member_ids.ids:
-                if t not in TeamMembers:
-                    TeamMembers.append(t)
-        return {'domain': {'salesperson': [('id', 'in', TeamMembers )]}}
-        
     @api.depends('salesperson', 'start_date', 'end_date')
     def _get_total_sales(self):
         for rec in self:
@@ -504,6 +501,7 @@ class SalesTargetLines(models.Model):
     gap = fields.Float(copy=False)
     current_year = fields.Boolean(copy=False)
     company_id = fields.Many2one(related='target_id.company_id', string='Company', store=True, readonly=True, index=True)
+    monthly_target_dynamic_required = fields.Boolean(compute='_compute_monthly_target_dynamic_required')
 
     @api.depends('user_id', 'date_order')
     def _get_total_sales(self):
@@ -513,7 +511,7 @@ class SalesTargetLines(models.Model):
                 start_date = datetime.strptime(start_date, '%d-%m-%Y').date()
                 stdt = Datetime.to_string(start_date)
                 endt = Datetime.to_string(rec.date_order)
-                BillingOrders = self.env['account.move'].search([
+                billing_orders = self.env['account.move'].search([
                     ('user_id', '=', rec.user_id.id),
                     ('create_date', '>=', stdt),
                     ('create_date', '<=', endt),
@@ -521,4 +519,12 @@ class SalesTargetLines(models.Model):
                     ('move_type', '=', 'out_invoice')
                 ])
 
-                rec.no_of_sales = len(BillingOrders)
+                rec.no_of_sales = len(billing_orders)
+
+    def _compute_monthly_target_dynamic_required(self):
+        group_team_leader = self.env.ref('itatix_sales_person_target.group_team_leader')
+        if group_team_leader and group_team_leader in self.env.user.groups_id:
+            self.monthly_target_dynamic_required = False
+            return
+
+        self.monthly_target_dynamic_required = True

@@ -4,6 +4,7 @@
     'description': "Custom Salesperson Target for PeruggySama",
     'summary': 'Sales Person Target for sales',
     'author': "ITATIX SA DE CV",
+    'license': 'AGPL-3',
     "version": "16.0.1.0.0",
     'depends': ['sale', 'sales_team', 'sale_management', 'stock','itatix_region'],
     'data': [
