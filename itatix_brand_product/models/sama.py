@@ -4,6 +4,8 @@ from odoo.exceptions import UserError
 
 class SamaCategory(models.Model):
     _name = 'sama.category'
+    _description = 'Category Sama'
+
     name = fields.Char(copy=False)
 
     @api.constrains('name')
@@ -15,6 +17,8 @@ class SamaCategory(models.Model):
 
 class SamaSubCategory(models.Model):
     _name = 'sama.subcategory'
+    _description = 'Subcategory Sama'
+
     name = fields.Char(copy=False)
 
     @api.constrains('name')
@@ -26,6 +30,8 @@ class SamaSubCategory(models.Model):
 
 class SamaBrand(models.Model):
     _name = 'sama.brand'
+    _description = 'Brand Sama'
+
     name = fields.Char(copy=False)
 
     @api.constrains('name')
