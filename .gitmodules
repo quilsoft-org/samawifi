@@ -1,0 +1,16 @@
+[submodule "sub_adhoc/sale"]
+	path = sub_adhoc/sale
+	url = https://github.com/ingadhoc/sale.git
+	branch = 16.0
+[submodule "sub_oca/sale-workflow"]
+	path = sub_oca/sale-workflow
+	url = https://github.com/OCA/sale-workflow.git
+	branch = 16.0
+[submodule "sub_oca/server-tools"]
+	path = sub_oca/server-tools
+	url = https://github.com/OCA/server-tools.git
+	branch = 16.0
+[submodule "sub_oca/product-attribute"]
+	path = sub_oca/product-attribute
+	url = https://github.com/OCA/product-attribute.git
+	branch = 16.0
