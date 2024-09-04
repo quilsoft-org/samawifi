@@ -5,7 +5,7 @@
     'author': "Quilsoft",
     'website': "https://www.quilsoft.com",
     'category': 'Sale',
-    'version': "16.0.1.0.0",
+    'version': "17.0.1.0.0",
     'license': "AGPL-3",    
     'depends': ['sale_management', 'account'],
     'data': [
