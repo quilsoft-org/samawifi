@@ -1,7 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Itatix Account Extended',
-    'version': "16.0.1.0.0",
+    'version': "17.0.1.0.0",
     'description': """
 Functional
 ----------

@@ -6,7 +6,7 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     total_real_cost = fields.Monetary(string="Costo Real", compute='_compute_real_margin', store=True, compute_sudo=True)
-    real_margin = fields.Monetary(string="Margen Real", compute='_compute_real_margin', compute_sudo=True)
+    real_margin = fields.Monetary(string="Margen Real", compute='_compute_real_margin', store=True, compute_sudo=True)
     real_margin_percent = fields.Float(string="Margen Real (%)", compute='_compute_real_margin', store=True, compute_sudo=True)
     currency_rate_usd_mxn = fields.Float("Currency Rate(MXN)", compute='_compute_currency_rate_usd_mxn',
                                          compute_sudo=True, readonly=True, store=True)
@@ -34,11 +34,11 @@ class AccountMove(models.Model):
             # with a single read_group query for better performance.
             # This isn't done in an onchange environment because (part of) the data
             # may not be stored in database (new records or unsaved modifications).
-            grouped_invoice_lines_data = self.env['account.move.line'].read_group(
+            grouped_invoice_lines_data = self.env['account.move.line']._read_group(
                 [
                     ('move_id', 'in', self.ids), ('product_id', '!=', False),
-                ], ['real_margin', 'move_id'], ['move_id'])
-            mapped_data = {m['move_id'][0]: m['real_margin'] for m in grouped_invoice_lines_data}
+                ], ['move_id'], ['real_margin:sum'])
+            mapped_data = {m[0]: m[1] for m in grouped_invoice_lines_data}
             for invoice in self:
                 invoice.total_real_cost = sum(invoice.invoice_line_ids.mapped('real_cost_subtotal'))
                 invoice.real_margin = mapped_data.get(invoice.id, 0.0)

@@ -5,17 +5,17 @@
 		<field name="model">sales.target.lines</field>
 		<field name="arch" type="xml">
 			<tree create="0" editable="bottom" delete="0">
-				<field name="monthly_target_dynamic_required" invisible="1" force_save="1" />
+				<field name="monthly_target_dynamic_required" column_invisible="True" force_save="1" />
 				<field name="date_order" readonly="1" force_save="1"/>
 				<field name="user_id" readonly="1" force_save="1"/>
 				<field name="region_id"/>
-				<field name="monthly_target" string="Quota" force_save="1" attrs="{'required': [('monthly_target_dynamic_required', '=', True)]}"/>
+				<field name="monthly_target" string="Quota" force_save="1" required="monthly_target_dynamic_required"/>
 				<field name="currency_id" readonly="1" force_save="1"/>
 				<field name="monthly_target_achieve" readonly="1" force_save="1"/>
 				<field name="current_year" readonly="1" force_save="1"/>
 				<field name="no_of_sales" readonly="1" force_save="1"/>
 				<field name="monthly_target_achieve_per" readonly="1" force_save="1"/>
-				<field name="target_id" invisible="1"/>
+				<field name="target_id" column_invisible="True"/>
         		<field name="company_id" groups="base.group_multi_company" optional="show" readonly="1"/>
 			</tree>
 		</field>
@@ -105,11 +105,11 @@
 				<field name="monthly_target" string="Quota"/>
 				<field name="achieve"/>
 				<field name="gap"/>
-				<field name="start_date" invisible="1"/>
-				<field name="end_date" invisible="1" readonly="1" force_save="1"/>
-				<field name="target" invisible="1"/>
+				<field name="start_date" column_invisible="True"/>
+				<field name="end_date" readonly="1" column_invisible="True" force_save="1"/>
+				<field name="target" column_invisible="True"/>
 				<field name="sales"/>
-				<field name="target_achieve" invisible="1"/>
+				<field name="target_achieve" column_invisible="True"/>
 				<field name="perct_achievement"/>
 			</tree>
 		</field>

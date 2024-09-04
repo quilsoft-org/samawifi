@@ -22,11 +22,11 @@ class SaleOrder(models.Model):
             # with a single read_group query for better performance.
             # This isn't done in an onchange environment because (part of) the data
             # may not be stored in database (new records or unsaved modifications).
-            grouped_order_lines_data = self.env['sale.order.line'].read_group(
+            grouped_order_lines_data = self.env['sale.order.line']._read_group(
                 [
                     ('order_id', 'in', self.ids),
-                ], ['real_margin', 'order_id'], ['order_id'])
-            mapped_data = {m['order_id'][0]: m['real_margin'] for m in grouped_order_lines_data}
+                ], ['order_id'], ['real_margin:sum'])
+            mapped_data = {m[0]: m[1] for m in grouped_order_lines_data}
             for order in self:
                 order.total_real_cost = sum(order.order_line.mapped('real_cost_subtotal'))
                 order.real_margin = mapped_data.get(order.id, 0.0)

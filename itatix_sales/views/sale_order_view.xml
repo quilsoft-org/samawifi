@@ -5,10 +5,10 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">
-                <field name="real_cost" attrs="{'readonly':[('state','!=','draft')]}"/>
+                <field name="real_cost" readonly="state != 'draft'"/>
                 <field name="real_cost_subtotal" optional="hide"/>
-                <field name="real_margin" invisible="1"/>
-                <field name="real_margin_percent" invisible="1"/>
+                <field name="real_margin" column_invisible="True"/>
+                <field name="real_margin_percent" column_invisible="True"/>
             </xpath>
             <field name="tax_totals" position="after">
                 <field name="amount_untaxed" invisible="1" />
@@ -16,7 +16,7 @@
                 <label for="real_margin" groups="base.group_user"/>
                 <div class="text-nowrap" groups="base.group_user">
                     <field name="real_margin" class="oe_inline"/>
-                    <span class="oe_inline" attrs="{'invisible': [('amount_untaxed', '=', 0)]}">
+                    <span class="oe_inline" invisible="amount_untaxed == 0">
                         (<field name="real_margin_percent" nolabel="1" class="oe_inline" widget="percentage"/>)
                     </span>
                 </div>
@@ -50,7 +50,7 @@
     <record id="sale_report_pivot_inherit" model="ir.ui.view">
         <field name="name">sale.report.pivot.view.inherit</field>
         <field name="model">sale.report</field>
-        <field name="inherit_id" ref="sale_enterprise.sale_report_view_pivot"/>
+        <field name="inherit_id" ref="website_sale_dashboard.view_online_sales_pivot"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='price_total']" position="after">
                 <field name="real_margin" type="measure"/>

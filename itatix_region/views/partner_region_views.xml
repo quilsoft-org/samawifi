@@ -18,7 +18,7 @@
             <form string="Region">
                 <sheet>
                     <widget name="web_ribbon" title="Archivado" bg_color="bg-danger"
-                        attrs="{'invisible': [('active', '=', True)]}"/>
+                        invisible="active"/>
                     <group>
                         <field name="active" invisible="1"/>
                         <field name="name"/>

@@ -3,7 +3,7 @@
     "author": "ITATIX SA DE CV, Quilsoft"
     "Odoo Community Association (OCA)",
     'license': 'AGPL-3',
-    "version": "16.0.1.0.0",
+    "version": "17.0.1.0.0",
     "category": "Purchase Management",
     "depends": ["purchase_stock", "sale", "crm", "sale_crm", "sale_purchase", "sale_purchase_stock", "web", "account"],
     "data": [

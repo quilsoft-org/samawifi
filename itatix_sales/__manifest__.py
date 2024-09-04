@@ -5,8 +5,8 @@
     'summary': 'Real Cost and Reports',
     'author': "ITATIX SA DE CV",
     'license': 'AGPL-3',
-    "version": "16.0.1.0.0",
-    'depends': ['sale','sale_management','sale_enterprise','itatix_sales_person_target'],
+    "version": "17.0.1.0.0",
+    'depends': ['sale_management','itatix_sales_person_target','website_sale_dashboard'],
     'data': [
         'views/sale_order_view.xml',
     ],

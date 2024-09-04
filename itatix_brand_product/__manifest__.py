@@ -1,6 +1,6 @@
 {
     'name': 'Itatix Brand Product',
-    'version': "16.0.1.0.0",
+    'version': "17.0.1.0.0",
     'summary': 'Agrega a los reportes de inventario y de analisis de venta la marca, categoria y subcategoria',
     'description': 'Agrega la marca, categoría y subcategoria a diversos reportes y vistas',
     'category': 'All',
