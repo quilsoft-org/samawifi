@@ -66,7 +66,7 @@ class InvoiceReportSama(models.Model):
         ],
         'account.move.line': [
             'quantity', 'price_subtotal', 'amount_residual', 'balance', 'amount_currency',
-            'move_id', 'product_id', 'product_uom_id', 'account_id', 'analytic_account_id',
+            'move_id', 'product_id', 'product_uom_id', 'account_id',
             'journal_id', 'company_id', 'currency_id', 'partner_id',
         ],
         'product.product': ['product_tmpl_id'],
@@ -125,7 +125,7 @@ class InvoiceReportSama(models.Model):
                 INNER JOIN account_move move ON move.id = line.move_id
                 JOIN {currency_table} ON currency_table.company_id = line.company_id
         '''.format(
-            currency_table=self.env['res.currency']._get_query_currency_table({'multi_company': True, 'date': {'date_to': fields.Date.today()}}),
+            currency_table=self.env['res.currency']._get_query_currency_table(self.env.company.ids, fields.Date.today()),
         )
 
     @api.model
@@ -134,7 +134,6 @@ class InvoiceReportSama(models.Model):
             WHERE move.move_type IN ('out_invoice','out_refund')
                 AND move.state NOT IN ('draft', 'cancel')
                 AND line.account_id IS NOT NULL
-                AND NOT line.exclude_from_invoice_tab
         '''
 
     @api.model
