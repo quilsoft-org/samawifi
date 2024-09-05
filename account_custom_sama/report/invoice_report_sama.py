@@ -125,7 +125,7 @@ class InvoiceReportSama(models.Model):
                 INNER JOIN account_move move ON move.id = line.move_id
                 JOIN {currency_table} ON currency_table.company_id = line.company_id
         '''.format(
-            currency_table=self.env['res.currency']._get_query_currency_table(self.env.company.ids, fields.Date.today()),
+            currency_table=self.env['res.currency']._get_query_currency_table(self.env.companies.ids, fields.Date.today()),
         )
 
     @api.model
