@@ -86,7 +86,6 @@ class SaleOrderLine(models.Model):
 
     @api.onchange('product_id', 'price_list')
     def product_id_change(self):
-        result = super(SaleOrderLine, self).product_id_change()
         vals = {}
         product = self.product_id.with_context(
             lang=get_lang(self.env, self.order_id.partner_id.lang).code,
@@ -100,7 +99,6 @@ class SaleOrderLine(models.Model):
         if self.order_id.pricelist_id and self.order_id.partner_id:
             vals['price_unit'] = self.env['account.tax']._fix_tax_included_price_company(self.price_list, product.taxes_id, self.tax_id, self.company_id)
         self.update(vals)
-        return result
 
     @api.onchange('product_id', 'product_uom', 'product_uom_qty', 'tax_id')
     def _onchange_price_list(self):
