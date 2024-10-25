@@ -44,6 +44,8 @@ class AccountInvoiceAnalysisReport(models.Model):
 
     # ==== Invoice line fields ====
     quantity = fields.Float(string='Product Quantity', readonly=True)
+    price_unit = fields.Float(string="Precio unitario", readonly=True)
+    discount = fields.Float(string="Descuento", readonly=True)
     product_id = fields.Many2one('product.product', string='Product', readonly=True)
     product_uom_id = fields.Many2one('uom.uom', string='Unit of Measure', readonly=True)
     product_categ_id = fields.Many2one('product.category', string='Product Category', readonly=True)
@@ -71,7 +73,7 @@ class AccountInvoiceAnalysisReport(models.Model):
             'invoice_date', 'invoice_date_due', 'invoice_payment_term_id', 'partner_bank_id',
         ],
         'account.move.line': [
-            'quantity', 'price_subtotal', 'amount_residual', 'balance', 'amount_currency',
+            'quantity', 'price_unit', 'discount', 'price_subtotal', 'amount_residual', 'balance', 'amount_currency',
             'move_id', 'product_id', 'product_uom_id', 'account_id', 'analytic_account_id',
             'journal_id', 'company_id', 'currency_id', 'partner_id', 'real_cost', 'real_margin', 
             'real_margin_percent', 'real_cost',
@@ -120,6 +122,8 @@ class AccountInvoiceAnalysisReport(models.Model):
                 CASE WHEN move.amount_untaxed_signed < 0 THEN -line.price_subtotal * move.currency_rate_usd ELSE line.price_subtotal * move.currency_rate_usd END  AS price_subtotal_usd,
                 line.quantity / NULLIF(COALESCE(uom_line.factor, 1) / COALESCE(uom_template.factor, 1), 0.0) * (CASE WHEN move.move_type IN ('in_invoice','out_refund','in_receipt') THEN -1 ELSE 1 END)
                                                                             AS quantity,
+                line.price_unit,
+                line.discount,
                 line.price_subtotal AS price_subtotal,
                 COALESCE(
                    -- Average line price
