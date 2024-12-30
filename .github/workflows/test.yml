@@ -1,0 +1,96 @@
+# esta acción está en desarrollo
+
+name: tests
+
+on:
+  workflow_dispatch: # Se dispara manualmente
+
+
+
+jobs:
+  unreleased-deps:
+    runs-on: ubuntu-latest
+    name: Detect unreleased dependencies
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          for reqfile in requirements.txt test-requirements.txt ; do
+              if [ -f ${reqfile} ] ; then
+                  result=0
+                  # reject non-comment lines that contain a / (i.e. URLs, relative paths)
+                  grep "^[^#].*/" ${reqfile} || result=$?
+                  if [ $result -eq 0 ] ; then
+                      echo "Unreleased dependencies found in ${reqfile}."
+                      exit 1
+                  fi
+              fi
+          done
+
+  test:
+    runs-on: ubuntu-latest
+    container: ${{ matrix.container }}
+    name: ${{ matrix.name }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: test with odoo
+            container: jobiols/py3.10-odoo16.0e:latest
+
+    services:
+      postgres:
+        image: postgres:12.1-alpine
+        env:
+          POSTGRES_USER: odoo
+          POSTGRES_PASSWORD: odoo
+          POSTGRES_DB: odoo
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Read copier answers
+        id: read_yaml
+        run: |
+          # Lee el contenido del archivo YAML
+          yaml_content=$(cat .copier-answers.yml)
+
+          # Extrae los valores de odoo_edition y odoo_version
+          odoo_edition=$(echo "$yaml_content" | grep 'odoo_edition' | cut -d ':' -f2 | tr -d '[:space:]')
+          odoo_version=$(echo "$yaml_content" | grep 'odoo_version' | cut -d ':' -f2 | tr -d '[:space:]')
+
+          # Pone los valores en environment
+          echo "odoo_edition=$odoo_edition" >> "$GITHUB_ENV"
+          echo "odoo_version=$odoo_version" >> "$GITHUB_ENV"
+        shell: bash
+
+      - name: Mostrar valor de la odoo_edition
+        run: |
+          echo "odoo_edition: ${{ env.odoo_edition }}"
+
+      - name: Install addons and dependencies
+        run: oca_install_addons
+
+      - name: Check licenses
+        run: manifestoo -d . check-licenses
+
+      - name: Check development status
+        run: manifestoo -d . check-dev-status --default-dev-status=Beta
+
+      - name: Initialize test db
+        run: oca_init_test_database
+
+      - name: Run tests
+        run: oca_run_tests
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          flags: smart-tests
+          verbose: true
+        env:
+          CODECOV_TOKEN: "dce429c3-1efe-46d2-bbe2-991101c465a7"

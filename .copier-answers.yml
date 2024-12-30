@@ -1,0 +1,6 @@
+# Changes here will be overwritten by Copier
+_commit: v1.3.23
+_src_path: /home/jobiols/tmp/template-repo
+odoo_edition: EE
+odoo_version: 17.0
+project_name: sama
